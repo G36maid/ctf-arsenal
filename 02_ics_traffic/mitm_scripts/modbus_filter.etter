@@ -1,0 +1,9 @@
+if (ip.proto == TCP && tcp.dst == 502) {
+    if (DATA.data + 7 == 0x03) {
+        msg("Modbus Read Holding Registers detected\n");
+    }
+    if (DATA.data + 7 == 0x10) {
+        msg("Modbus Write Multiple Registers - DROPPING\n");
+        drop();
+    }
+}
