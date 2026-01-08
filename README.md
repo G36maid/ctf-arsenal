@@ -10,7 +10,8 @@
 ### 1. 安裝
 ```bash
 cd ctf-arsenal
-bash setup.sh
+bash scripts/setup-arch-paru.sh  # Arch Linux + paru
+# 或使用 scripts/setup.sh (通用版本)
 ```
 
 ### 2. 啟用環境
@@ -163,8 +164,8 @@ pip install pwntools requests beautifulsoup4 scapy pycryptodome
 ## 比賽當天檢查清單
 
 - [ ] `git clone` 此 repo 到比賽機器
-- [ ] 執行 `setup.sh` 安裝工具
-- [ ] 測試 `python 00_templates/pwn_basic.py`
+- [ ] 執行 `bash scripts/setup-arch-paru.sh` 安裝工具
+- [ ] 測試 `python 00_templates/pwn_basic.py` (或 `uv run python 00_templates/pwn_basic.py`)
 - [ ] 確認 GDB 正常 (pwndbg/gef)
 - [ ] 測試 Ettercap: `sudo ettercap -T -i eth0 -M arp`
 - [ ] 確認 IP forwarding: `sudo sysctl -w net.ipv4.ip_forward=1`
