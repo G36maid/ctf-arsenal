@@ -34,42 +34,32 @@ ctf-arsenal/
 │   ├── solve.rs              → Rust 多執行緒暴力破解
 │   └── web_requests.py       → Python Requests 模板
 │
-├── 01_bin_exploit/
-│   ├── gdb_init/             → GDB 設定檔 (pwndbg/gef)
-│   ├── gadgets/              → 常用 shellcode
-│   └── tools/                → 特殊工具
+├── 01_bin_exploit/           Binary exploitation tools
+├── 02_ics_traffic/           ⚠️ 工控情境題必看 (Ettercap, Scapy)
+├── 03_web/                   Web exploitation tools
+├── 04_crypto/                Cryptography tools
+├── 05_forensics/             Forensics tools
+├── 06_misc/                  Miscellaneous tools
 │
-├── 02_ics_traffic/           ⚠️ 工控情境題必看
-│   ├── mitm_scripts/
-│   │   ├── arp_spoof.py      → Scapy ARP Spoofing
-│   │   ├── modbus_filter.etter → Ettercap Modbus filter
-│   │   └── iec104_filter.etter → Ettercap IEC 104 filter
-│   ├── scapy_scripts/
-│   │   ├── modbus_sniffer.py → Modbus 封包分析
-│   │   └── modbus_inject.py  → Modbus 封包注入
-│   └── protocol_docs/         → 工控協定文件
+├── cheat_sheets/             📖 快速參考
+│   ├── ettercap_usage.md     ⚠️ Ettercap 必讀
+│   ├── gdb_cheatsheet.md
+│   └── linux_commands.md
 │
-├── 03_web/
-│   ├── wordlists/            → rockyou.txt, SecLists
-│   ├── payloads/             → SQL injection, XSS
-│   └── webshells/            → PHP, JSP, ASPX shells
+├── scripts/                  🛠️ 安裝腳本
+│   ├── setup-arch-paru.sh    → Arch Linux 自動安裝
+│   ├── setup.sh              → 通用版本
+│   └── INSTALL_INSTRUCTIONS.sh
 │
-├── 04_crypto/
-│   ├── rsa_tool/             → RsaCtfTool
-│   └── classic.py            → 經典密碼學
+├── docs/                     📚 詳細文檔
+│   ├── SESSION_SUMMARY.md    → 完整專案總覽
+│   ├── INSTALL_INSTRUCTIONS.md
+│   ├── SYSTEM_CHECK.md
+│   └── ...
 │
-├── 05_forensics/
-├── 06_misc/
-│
-├── static_bins/              💾 救命用靜態二進位檔
-│   ├── busybox-x86_64
-│   ├── nmap (需自行下載)
-│   └── socat (需自行下載)
-│
-└── cheat_sheets/             📖 快速參考
-    ├── ettercap_usage.md     ⚠️ Ettercap 必讀
-    ├── gdb_cheatsheet.md
-    └── linux_commands.md
+├── static_bins/              💾 靜態二進位檔
+├── README.md                 📘 本文件
+└── pyproject.toml            🐍 Python 配置 (uv)
 ```
 
 ## 重要提醒
@@ -195,6 +185,12 @@ tar -xzf Passwords/Leaked-Databases/rockyou.txt.tar.gz
 ```
 
 ## 進階參考資源
+
+### 完整文檔
+詳見 [`docs/`](docs/) 目錄：
+- [`SESSION_SUMMARY.md`](docs/SESSION_SUMMARY.md) - 完整專案總覽與使用指南
+- [`INSTALL_INSTRUCTIONS.md`](docs/INSTALL_INSTRUCTIONS.md) - 詳細安裝說明
+- [`SYSTEM_CHECK.md`](docs/SYSTEM_CHECK.md) - 工具安裝檢查清單
 
 ### 工控安全
 - Modbus 協定: `02_ics_traffic/protocol_docs/`
