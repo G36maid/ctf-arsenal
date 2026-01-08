@@ -1,0 +1,54 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# CTF specific
+*.pcap
+*.pcapng
+core
+core.*
+peda-session-*.txt
+.gdb_history
+
+# Secrets
+*.pem
+*.key
+id_rsa*
+*.env
+
+# Compiled
+*.o
+*.a
+*.out
+a.out
+
+# Temporary files
+*.tmp
+*.log
+setup.log
+
+# Downloaded resources
+03_web/wordlists/SecLists/
+static_bins/*.tar.gz
+static_bins/*.zip
