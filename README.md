@@ -143,7 +143,14 @@ sudo pacman -S python-pwntools gdb pwndbg gef ropgadget ropper \
 
 ### Ruby Gems
 ```bash
-sudo gem install one_gadget seccomp-tools
+# 安裝到用戶目錄 (無需 sudo)
+gem install one_gadget seccomp-tools
+
+# 設置 PATH (臨時)
+source scripts/setup_gem_path.sh
+
+# 或永久設置 (添加到 ~/.zshrc)
+echo 'export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"' >> ~/.zshrc
 ```
 
 ### Python (venv)
@@ -157,6 +164,8 @@ pip install pwntools requests beautifulsoup4 scapy pycryptodome
 - [ ] 執行 `bash scripts/setup-arch-paru.sh` 安裝工具
 - [ ] 測試 `python 00_templates/pwn_basic.py` (或 `uv run python 00_templates/pwn_basic.py`)
 - [ ] 確認 GDB 正常 (pwndbg/gef)
+- [ ] 設置 Ruby gems PATH: `source scripts/setup_gem_path.sh`
+- [ ] 驗證 one_gadget: `one_gadget --version`
 - [ ] 測試 Ettercap: `sudo ettercap -T -i eth0 -M arp`
 - [ ] 確認 IP forwarding: `sudo sysctl -w net.ipv4.ip_forward=1`
 - [ ] 瀏覽 `cheat_sheets/` 快速複習
@@ -166,6 +175,15 @@ pip install pwntools requests beautifulsoup4 scapy pycryptodome
 ### GDB 沒有載入 pwndbg/gef
 ```bash
 echo 'source /usr/share/pwndbg/gdbinit.py' >> ~/.gdbinit
+```
+
+### one_gadget 或 seccomp-tools 未找到
+```bash
+# 臨時設置 PATH
+source scripts/setup_gem_path.sh
+
+# 永久設置
+echo 'export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"' >> ~/.zshrc
 ```
 
 ### Ettercap 需要 root
