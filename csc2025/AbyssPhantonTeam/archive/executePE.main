@@ -1,0 +1,249 @@
+
+/* Golang function info: Flags: []
+   Golang source: /Users/seadog007/csc2025-final/17-Abyss-Phantom-Team/cmd/loader/loader_prod.go:56
+   Golang stacktrace signature: func main.executePEFromMemory(struct? {8, 8, 8}) ??? */
+
+void main::main.executePEFromMemory(short *param_1,uint param_2,uint param_3)
+
+{
+  int iVar1;
+  short sVar2;
+  dword dVar3;
+  dword dVar4;
+  undefined *.context;
+  uintptr (*pauVar5) [4];
+  uintptr uVar6;
+  uintptr (*pauVar7) [3];
+  uint x;
+  uintptr (*pauVar8) [7];
+  uintptr (*pauVar9) [2];
+  short *psVar10;
+  uint uVar11;
+  uint uVar12;
+  int y;
+  uint uVar13;
+  uint uVar14;
+  uintptr uVar15;
+  uint uVar16;
+  uintptr uVar17;
+  uintptr uVar18;
+  interface {} e;
+  interface {} e_00;
+  interface {} e_01;
+  interface {} e_02;
+  interface {} e_03;
+  interface {} e_04;
+  interface {} e_05;
+  interface {} e_06;
+  interface {} e_07;
+  multireturn{uintptr;uintptr;error} mVar19;
+  []uintptr a;
+  []uintptr a_00;
+  []uintptr a_01;
+  []uintptr a_02;
+  []uintptr a_03;
+  []uintptr a_04;
+  short *psStack0000000000000008;
+  uintptr local_58;
+  uint local_50;
+  uintptr local_48;
+  int local_40;
+  int local_38;
+  short *local_30;
+  uintptr local_28;
+  uintptr local_20;
+  int local_18;
+  undefined **local_10;
+
+  uVar17 = 0;
+  uVar18 = 0;
+  psStack0000000000000008 = param_1;
+  while (&local_58 <= CURRENT_G.stackguard0) {
+    runtime::runtime.morestack_noctxt();
+  }
+  local_10 = &PTR_main.executePEFromMemory.func1_004be500;
+  if ((int)param_2 < 0x40) {
+    e_07.data = &PTR_DAT_004d7150;
+    e_07.tab = (interface {}_itab *)&string___String_type;
+                    /* WARNING: Subroutine does not return */
+    runtime::runtime.gopanic(e_07);
+  }
+  if (*psStack0000000000000008 != 0x5a4d) {
+    e_06.data = &PTR_DAT_004d7160;
+    e_06.tab = (interface {}_itab *)&string___String_type;
+                    /* WARNING: Subroutine does not return */
+    runtime::runtime.gopanic(e_06);
+  }
+  local_50 = (uint)*(sdword *)(psStack0000000000000008 + 0x1e);
+  if ((int)param_2 <= (int)local_50) {
+    e_05.data = &PTR_DAT_004d7170;
+    e_05.tab = (interface {}_itab *)&string___String_type;
+                    /* WARNING: Subroutine does not return */
+    runtime::runtime.gopanic(e_05);
+  }
+  if (param_2 <= local_50) {
+                    /* WARNING: Subroutine does not return */
+    runtime::runtime.panicIndex(local_50,param_2);
+  }
+  if (*(sdword *)((int)psStack0000000000000008 + local_50) != 0x4550) {
+    e_04.data = &PTR_DAT_004d7180;
+    e_04.tab = (interface {}_itab *)&string___String_type;
+                    /* WARNING: Subroutine does not return */
+    runtime::runtime.gopanic(e_04);
+  }
+  if (param_2 <= local_50 + 4) {
+                    /* WARNING: Subroutine does not return */
+    runtime::runtime.panicIndex(local_50 + 4,param_2);
+  }
+  local_38 = (int)psStack0000000000000008 + local_50 + 4;
+  if ((int)param_2 < (int)(local_50 + 0x1a)) {
+    e_03.data = &PTR_DAT_004d7190;
+    e_03.tab = (interface {}_itab *)&string___String_type;
+                    /* WARNING: Subroutine does not return */
+    runtime::runtime.gopanic(e_03);
+  }
+  if (param_2 <= local_50 + 0x18) {
+                    /* WARNING: Subroutine does not return */
+    runtime::runtime.panicIndex(local_50 + 0x18,param_2);
+  }
+  sVar2 = *(short *)(local_50 + 0x18 + (int)psStack0000000000000008);
+  local_40 = (int)psStack0000000000000008 + local_50 + 0x18;
+  if (sVar2 != 0x20b) {
+    if (sVar2 != 0x10b) {
+      e_02.data = &PTR_DAT_004d71b0;
+      e_02.tab = (interface {}_itab *)&string___String_type;
+                    /* WARNING: Subroutine does not return */
+      runtime::runtime.gopanic(e_02);
+    }
+    e_01.data = &PTR_DAT_004d71a0;
+    e_01.tab = (interface {}_itab *)&string___String_type;
+                    /* WARNING: Subroutine does not return */
+    runtime::runtime.gopanic(e_01);
+  }
+  local_58 = *(uintptr *)(local_50 + 0x30 + (int)psStack0000000000000008);
+  uVar12 = (uint)*(dword *)(local_50 + 0x50 + (int)psStack0000000000000008);
+  pauVar5 = runtime::runtime.newobject((internal/abi.Type *)&[4]uintptr___Array_type);
+  (*pauVar5)[0] = local_58;
+  (*pauVar5)[1] = uVar12;
+  (*pauVar5)[2] = 0x3000;
+  (*pauVar5)[3] = 4;
+  a.len = 4;
+  a.array = *pauVar5;
+  a.cap = 4;
+  mVar19 = syscall::syscall.(*LazyProc).Call(PTR_DAT_0054eb30,a);
+  uVar6 = mVar19.~r0;
+  if (uVar6 == 0) {
+    pauVar5 = runtime::runtime.newobject((internal/abi.Type *)&[4]uintptr___Array_type);
+    (*pauVar5)[1] = uVar12;
+    (*pauVar5)[2] = 0x3000;
+    (*pauVar5)[3] = 4;
+    a_00.len = 4;
+    a_00.array = *pauVar5;
+    a_00.cap = 4;
+    mVar19 = syscall::syscall.(*LazyProc).Call(PTR_DAT_0054eb30,a_00);
+    uVar6 = mVar19.~r0;
+    if (uVar6 == 0) {
+      e_00.data = &PTR_DAT_004d71c0;
+      e_00.tab = (interface {}_itab *)&string___String_type;
+                    /* WARNING: Subroutine does not return */
+      runtime::runtime.gopanic(e_00);
+    }
+  }
+  dVar3 = *(dword *)(local_50 + 0x54 + (int)psStack0000000000000008);
+  local_30 = psStack0000000000000008;
+  pauVar7 = runtime::runtime.newobject((internal/abi.Type *)&[3]uintptr___Array_type);
+  (*pauVar7)[0] = uVar6;
+  (*pauVar7)[1] = (uintptr)local_30;
+  (*pauVar7)[2] = (uint)dVar3;
+  a_01.len = 3;
+  a_01.array = *pauVar7;
+  a_01.cap = 3;
+  syscall::syscall.(*LazyProc).Call(PTR_DAT_0054eb40,a_01);
+  y = *(ushort *)(local_50 + 0x14 + (int)psStack0000000000000008) + local_50;
+  psVar10 = psStack0000000000000008;
+  uVar11 = local_50;
+  for (x = 0; (ushort)x < *(ushort *)(uVar11 + 6 + (int)psVar10); x = (uint)(dword)((sdword)x + 1))
+  {
+    uVar13 = x & 0xffff;
+    uVar14 = y + uVar13 * 0x28 + 0x18;
+    iVar1 = y + uVar13 * 0x28;
+    if (((int)param_2 <= (int)uVar14) || ((int)param_2 < (int)(y + uVar13 * 0x28 + 0x40))) break;
+    if (param_2 <= uVar14) {
+                    /* WARNING: Subroutine does not return */
+      runtime::runtime.panicIndex(uVar14,y);
+    }
+    dVar3 = *(dword *)(iVar1 + 0x28 + (int)psVar10);
+    if (((dVar3 != 0) &&
+        (dVar4 = *(dword *)(iVar1 + 0x2c + (int)psVar10), uVar14 = (uint)dVar4, dVar4 != 0)) &&
+       ((int)uVar14 < (int)param_2)) {
+      uVar16 = (uint)*(dword *)(iVar1 + 0x24 + (int)psVar10);
+      uVar13 = (uint)dVar3;
+      if ((int)param_2 < (int)(uVar14 + dVar3)) {
+        uVar13 = param_2 - uVar14;
+      }
+      if (uVar16 + uVar13 <= uVar12) {
+        if (param_3 < uVar13 + uVar14) {
+                    /* WARNING: Subroutine does not return */
+          runtime::runtime.panicSliceAcap(x,y);
+        }
+        if (uVar13 + uVar14 < uVar14) {
+                    /* WARNING: Subroutine does not return */
+          runtime::runtime.panicSliceB(uVar14,y);
+        }
+        uVar15 = (uVar14 & (int)-(param_3 - uVar14) >> 0x3f) + (int)psVar10;
+        if (uVar13 == 0) {
+                    /* WARNING: Subroutine does not return */
+          runtime::runtime.panicIndex(0,y);
+        }
+        local_48 = uVar15;
+        pauVar7 = runtime::runtime.newobject((internal/abi.Type *)&[3]uintptr___Array_type);
+        (*pauVar7)[0] = uVar6 + uVar16;
+        (*pauVar7)[1] = uVar15;
+        (*pauVar7)[2] = uVar13;
+        a_02.len = 3;
+        a_02.array = *pauVar7;
+        a_02.cap = 3;
+        syscall::syscall.(*LazyProc).Call(PTR_DAT_0054eb40,a_02);
+        local_28 = local_48;
+        x = x & 0xffff;
+        psVar10 = psStack0000000000000008;
+        uVar11 = local_50;
+        local_20 = uVar13;
+        local_18 = param_3 - uVar14;
+      }
+    }
+  }
+  if (uVar6 != local_58) {
+    main.processRelocations(uVar6,local_58,local_40);
+  }
+  main.resolveImports(uVar6,local_40);
+  main.setMemoryProtections(uVar6,local_38,local_40,(int)psStack0000000000000008,param_2);
+  dVar3 = *(dword *)(local_50 + 0x28 + (int)psStack0000000000000008);
+  pauVar8 = runtime::runtime.newobject((internal/abi.Type *)&[7]uintptr___Array_type);
+  (*pauVar8)[2] = dVar3 + uVar6;
+  (*pauVar8)[3] = uVar17;
+  (*pauVar8)[4] = uVar18;
+  (*pauVar8)[5] = uVar17;
+  (*pauVar8)[6] = uVar18;
+  .context = PTR_DAT_0054eb48;
+  a_03.len = 7;
+  a_03.array = *pauVar8;
+  a_03.cap = 7;
+  mVar19 = syscall::syscall.(*LazyProc).Call(PTR_DAT_0054eb48,a_03);
+  if (mVar19.~r0 != 0) {
+    pauVar9 = runtime::runtime.newobject((internal/abi.Type *)&[2]uintptr___Array_type);
+    (*pauVar9)[0] = mVar19.~r0;
+    (*pauVar9)[1] = 0xffffffff;
+    a_04.len = 2;
+    a_04.array = *pauVar9;
+    a_04.cap = 2;
+    syscall::syscall.(*LazyProc).Call(PTR_DAT_0054eb50,a_04);
+    os::os.Exit(0);
+    main.executePEFromMemory.func1((.closure *).context);
+    return;
+  }
+  e.data = &PTR_DAT_004d71d0;
+  e.tab = (interface {}_itab *)&string___String_type;
+                    /* WARNING: Subroutine does not return */
+  runtime::runtime.gopanic(e);
+}

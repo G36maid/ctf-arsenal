@@ -1,0 +1,166 @@
+
+/* WARNING: Removing unreachable block (ram,0x004354a0) */
+/* WARNING: Removing unreachable block (ram,0x004356c9) */
+/* Golang function info: Flags: []
+   Golang source: /usr/local/go/src/runtime/proc.go:144
+   Golang stacktrace signature: func runtime.main() ???
+   Golang signature [from_snapshot]: func runtime.main() */
+
+void runtime::runtime.main(void)
+
+{
+  sdword *psVar1;
+  runtime.m *fn;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  int iVar5;
+  int in_GS_OFFSET;
+  undefined8 uVar6;
+  string s;
+  string s_00;
+  string s_01;
+  string s_02;
+  string s_03;
+  undefined1 local_72;
+  undefined1 local_71;
+  int local_70;
+  int local_68;
+  int local_60;
+  int local_58;
+  int local_50;
+  int local_48;
+  int local_40;
+  int local_38;
+  undefined *local_30;
+  runtime.m *local_28;
+  code *local_20;
+  undefined1 *puStack_18;
+  code **local_10;
+
+  uVar6 = 0;
+  while (fn = CURRENT_G.m, &puStack_18 <= CURRENT_G.stackguard0) {
+    runtime.morestack_noctxt();
+  }
+  local_71 = 0;
+  local_28 = CURRENT_G.m;
+  (CURRENT_G.m)->g0->racectx = 0;
+  DAT_00548378 = 1000000000;
+  DAT_00548380 = 2000000000;
+  DAT_005a8b77 = 1;
+  local_10 = (code **)uVar6;
+  runtime.systemstack((func() *)fn);
+  iVar2 = **(int **)(in_GS_OFFSET + DAT_005a8d90);
+  psVar1 = (sdword *)(*(int *)(iVar2 + 0x30) + 0x23c);
+  *psVar1 = *psVar1 + 1;
+  *(int *)(*(int *)(iVar2 + 0x30) + 0x130) = iVar2;
+  *(undefined8 *)(iVar2 + 0xd0) = *(undefined8 *)(iVar2 + 0x30);
+  if (local_28 != (runtime.m *)&DAT_005563a0) {
+    s_03.len = 0x16;
+    s_03.str = (uint8 *)"runtime.main not on m0";
+                    /* WARNING: Subroutine does not return */
+    runtime.throw(s_03);
+  }
+  runtime.nanotime1();
+  DAT_005a8cf8 = &PTR_runtime.main.func1_004be740;
+  if (DAT_005a90f4 != 0) {
+    DAT_005a8e88 = *(undefined8 *)(**(int **)(in_GS_OFFSET + DAT_005a8d90) + 0x98);
+    DAT_005a8e80 = 1;
+  }
+  local_30 = PTR_PTR_00548580;
+  local_60 = DAT_00548588;
+  iVar2 = 0;
+  while (iVar2 < local_60) {
+    local_48 = iVar2;
+    runtime.doInit1(*(runtime.initTask **)(local_30 + iVar2 * 8));
+    iVar2 = local_48 + 1;
+  }
+  local_72 = 1;
+  local_20 = runtime.main.func2;
+  puStack_18 = &local_72;
+  local_10 = &local_20;
+  local_71 = 1;
+  runtime.gcenable();
+  DAT_00555980 = runtime.makechan(&chan_bool___Chan_type,0);
+  if (DAT_005a8b6d != '\0') {
+    if (DAT_00555a88 == 0) {
+      s_02.len = 0x20;
+      s_02.str = (uint8 *)"_cgo_pthread_key_created missing";
+                    /* WARNING: Subroutine does not return */
+      runtime.throw(s_02);
+    }
+    if (DAT_00555a70 == 0) {
+      s_01.len = 0x19;
+      s_01.str = (uint8 *)"_cgo_thread_start missing";
+                    /* WARNING: Subroutine does not return */
+      runtime.throw(s_01);
+    }
+    if (DAT_00555a78 == (unsafe.Pointer)0x0) {
+      s_00.len = 0x25;
+      s_00.str = (uint8 *)"_cgo_notify_runtime_init_done missing";
+                    /* WARNING: Subroutine does not return */
+      runtime.throw(s_00);
+    }
+    if (DAT_005558b8 == (undefined8 *)0x0) {
+      s.len = 0x16;
+      s.str = (uint8 *)"set_crosscall2 missing";
+                    /* WARNING: Subroutine does not return */
+      runtime.throw(s);
+    }
+    (*(code *)*DAT_005558b8)();
+    runtime.startTemplateThread();
+    runtime.cgocall(DAT_00555a78,(unsafe.Pointer)0x0);
+  }
+  if (DAT_005559b0 == (int *)0x0) {
+    iVar4 = 0;
+    iVar2 = 0;
+  }
+  else {
+    iVar2 = *DAT_005559b0;
+    iVar4 = DAT_005559b0[1];
+  }
+  iVar3 = 0;
+  local_70 = iVar4;
+  local_40 = iVar2;
+  while (iVar3 < iVar4) {
+    iVar5 = *(int *)(iVar2 + iVar3 * 8);
+    local_38 = *(int *)(iVar5 + 0x1d0);
+    local_68 = *(int *)(iVar5 + 0x1d8);
+    iVar5 = 0;
+    local_48 = iVar3;
+    while (iVar5 < local_68) {
+      local_50 = iVar5;
+      runtime.doInit1(*(runtime.initTask **)(local_38 + iVar5 * 8));
+      iVar4 = local_70;
+      iVar2 = local_40;
+      iVar5 = local_50 + 1;
+    }
+    iVar3 = local_48 + 1;
+  }
+  DAT_005a8e80 = 0;
+  runtime.closechan(DAT_00555980);
+  local_72 = 0;
+  runtime.unlockOSThread();
+  if ((DAT_005a8b7c == '\0') && (DAT_005a8b7b == '\0')) {
+    main::main.main();
+    if (DAT_005a8bac != 0) {
+      iVar2 = 0;
+      while ((iVar2 < 1000 && (DAT_005a8bac != 0))) {
+        local_58 = iVar2 + 1;
+        runtime.mcall((.closure *)&PTR_runtime.gosched_m_004be718);
+        iVar2 = local_58;
+      }
+    }
+    if (DAT_005a8bb0 != 0) {
+      runtime.gopark((func(*runtime.g, unsafe.Pointer) bool *)0x0,(unsafe.Pointer)0x0,8,0x10,1);
+    }
+    runtime.runExitHooks(0);
+    runtime.exit(0);
+    do {
+                    /* WARNING: Do nothing block with infinite loop */
+    } while( true );
+  }
+  local_71 = 0;
+  (**local_10)();
+  return;
+}
