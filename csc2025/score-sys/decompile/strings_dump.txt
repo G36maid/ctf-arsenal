@@ -1,0 +1,408 @@
+t	]	R
+Student Score Management System - Tkinter GUI Client
+messagebox
+simpledialog
+productionz
+http://192.168.100.110:3333z
+http://localhost:54088z
+x-activate-codez$8d7a77ae-dac9-4397-afd6-44b92fd5b6f7c
+LoginWindowz+Login window for both students and teachersc
+Score Management - Login
+400x350FN)
+root
+title
+geometry
+	resizable
+center_window
+create_widgets)
+selfr	
+_temp_client_21.py
+__init__
+LoginWindow.__init__
+400x350+
+update_idletasks
+winfo_width
+winfo_height
+winfo_screenwidth
+winfo_screenheightr
+width
+height
+     r
+LoginWindow.center_window
+#2196F3
+fillFu
+ Score Management System
+white
+text
+font
+fgr$
+expand
+padx
+pady
+z	Login As:
+anchorr0
+student)
+value)
+Student)
+variabler6
+sider/
+Teacher/Admin
+teacher
+User ID:)
+ipady
+	Password:
+show
+Login
+#4CAF50
+hand2)
+cursor
+command)
+<Return>c
+login)
+<lambda>
+,LoginWindow.create_widgets.<locals>.<lambda>e
+	Helvetica
+bold
+Framer	
+pack
+pack_propagate
+Label
+BOTH
+	StringVar
+	user_type
+Radiobutton
+LEFT
+Entry
+user_id_entry
+password_entry
+ButtonrG
+bind)
+title_frame
+title_label
+main_frame
+type_frame
+	login_btns
+`     r
+LoginWindow.create_widgets'
+R	8X
+Errorz!Please enter User ID and PasswordNz
+/api/v1/login
+user_id
+passwordrc
+json
+timeout
+successr5
+namez
+Login Failed
+messagez
+Invalid credentials
+Connection ErrorzACannot connect to server.
+Please make sure the server is running.)
+striprh
+	showerror
+requests
+post
+SERVER_URLrv
+destroyrZ
+StudentWindow
+TeacherWindow
+mainloop
+exceptions
+ConnectionError
+	Exception
+str)
+response
+data
+new_rootrH
+        r
+LoginWindow.loging
+!A;F
+__name__
+__module__
+__qualname__
+__firstlineno__
+__doc__r
+__static_attributes__
+__classdictcell__)
+__classdict__s
+z-Student view - can only view their own scoresc
+Student Portal - 
+600x500N)
+student_idry
+load_scores)
+    r
+StudentWindow.__init__
+R%R&7
+R(R,R%R)7
+)0r"
+ Welcome, 
+Student ID: r2
+Logout
+#f44336
+ Refresh
+ My Scoresr3
+subject
+score
+grade
+headings
+columnsr@
+Subject
+Score
+Grade
+orientrE
+yscrollcommand)
+#f5f5f5
+logout
+RIGHTr
+Treeview
+tree
+heading
+column
+CENTER
+	Scrollbar
+VERTICAL
+yview
+	configure
+stats_frame
+BOTTOM
+stats_label)	r
+header_frame
+header_label
+info_frame
+logout_btn
+refresh_btn
+table_framer
+	scrollbars	
+         r
+StudentWindow.create_widgets
+	get_grade
+StudentWindow.get_grade
+WxV	3
+/api/v1/student/
+/scores
+scoresr
+valuesu
+ Total Subjects: z
+  |  Average Score: z
+.2fz
+  |  Overall Grade: r
+No scores recorded yet.rr
+Failed to load scoresr{
+Cannot connect to server.N)
+get_children
+delete
+itemsr
+insertrZ
+ENDr
+configr
+itemr
+total
+countr
+avgrH
+            r
+StudentWindow.load_scores
+StudentWindow.logout
+z1Teacher/Admin view - full management capabilitiesc
+Teacher Portal - 
+900x650N)	r	
+teacher_idry
+subjects
+studentsr
+	load_data)
+    r
+TeacherWindow.__init__#
+#673AB7r#
+ Teacher Portal - r'
+#eeeeeer
+ Add Studentu
+ Add Subjectu
+ Statisticsr
+ All Scoresr
+ Manage Scoresu
+ StudentsNrK
+add_student
+add_subject
+show_statisticsr
+Notebook
+notebookr`
+scores_tab
+create_scores_tab
+manage_tab
+create_manage_tab
+students_tab
+create_students_tab)
+toolbars
+    r
+TeacherWindow.create_widgets1
+Create the all scores view tabr
+Student IDr
+Namer
+scores_treer
+   r
+TeacherWindow.create_scores_taba
+R	R#R
+^ R#R
+Create the manage scores tabr.
+Select Student:r2
+rowr
+stickyr0
+readonly)
+state)
+Select Subject:z
+Score (0-100):
+columnspanr0
+ Save ScorerB
+ Delete Scorer
+z$Current Scores for Selected Student:)
+<<ComboboxSelected>>NrO
+gridra
+Combobox
+student_combo
+subject_comborf
+score_entryri
+save_scorere
+delete_scorer
+student_scores_treer
+on_student_selected)
+form_frame
+	btn_framer
+    r
+TeacherWindow.create_manage_taby
+z"Create the students management tabr
+<Button-2>z
+<Button-3>)
+ Delete Selected Studentr
+students_treer
+show_student_context_menur[
+delete_student)
+    r
+!TeacherWindow.create_students_tab
+TeacherWindow.get_grade
+Load all data from serverz
+/api/v1/subjectsr
+z7/api/v1/users?user_type=students&fields=student_id,name
+usersr
+ - ry
+/api/v1/scoresr
+student_namer{
+student_listr
+recordr
+           r
+TeacherWindow.load_data
+WxV	3
+z&Handle student selection in manage tabNr1
+splitr
+event
+	selectionr
+           r
+!TeacherWindow.on_student_selected
+Save or update a scorerr
+Please fill in all fieldsNz(Score must be a number between 0 and 100r1
+/api/v1/scorer
+Successz
+Score saved successfully!rz
+Failed to save score)
+float
+ValueErrorr8
+showinfor
+student_selectionr
+score_textr
+         r
+TeacherWindow.save_score
+Delete a scorerr
+z#Please select a student and subjectN
+Confirmz
+Delete z
+ score for this student?r1
+Score deleted successfully!rz
+Failed to delete score)
+askyesnor8
+       r
+TeacherWindow.delete_scoreJ
+Add a new studentz
+/api/v1/studentru
+Student added successfully!rr
+Failed to add studentN)
+AddStudentDialogr	
+wait_window
+resultr
+dialogr
+     r
+TeacherWindow.add_studentm
+= D#
+Delete selected studentrr
+z!Please select a student to deleteNr
+Delete student z
+ (z*)?
+This will also delete all their scores.r
+Student deleted successfully!rz
+Failed to delete student)
+        r
+TeacherWindow.delete_student
+,'D>
+	 E/
+Add a new subjectz
+Add Subjectz
+Enter new subject name:z
+/api/v1/subjectr
+Subject added successfully!rr
+Failed to add subjectN)
+	askstringr
+     r
+TeacherWindow.add_subject
+)'B=
+R	^x\
+Show score statisticsz
+/api/v1/statisticsr
+Score Statistics
+500x400u 
+ Score Statistics by Subjectr2
+average
+highest
+lowestr
+Students
+Average
+Highest
+Lowestr
+statisticsr
+Toplevelr	
+stats_windowr
+statsrH
+         r
+TeacherWindow.show_statistics
+z"Show context menu for student treeNr
+'TeacherWindow.show_student_context_menu
+TeacherWindow.logout
+Dialog for adding a new studentc
+Add New Student
+350x250r
+Student ID:r2
+Name:r>
+password123r
+AddrB
+Cancel)
+	transient
+grab_setr
+winfo_xr
+winfo_yr
+id_entry
+name_entryrh
+okre
+cancel)
+parentr
+framer&
+      r
+AddStudentDialog.__init__
+z"Please fill in Student ID and NameNr
+    r
+AddStudentDialog.ok
+AddStudentDialog.cancel$
+mainr}
+__main__)
+tkinterrZ
+	_requestsrv
+MODEr
+Session
+headers
+updater
+<module>r
