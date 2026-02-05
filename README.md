@@ -30,7 +30,7 @@ cp .agents/skills/pwn-exploits/gdb_init/gdbinit-pwndbg ~/.gdbinit
 
 ```
 ctf-arsenal/
-├── .agents/skills/            ⭐ OpenCode 技能模組 (新架構)
+├── .agents/skills/            ⭐ OpenCode 技能模組
 │   ├── pwn-exploits/         → Binary exploitation
 │   │   ├── SKILL.md          → 技能定義與工作流程
 │   │   ├── templates/        → Pwn 模板 (pwn_basic.py, pwn_rop.py 等)
@@ -42,15 +42,6 @@ ctf-arsenal/
 │   ├── crypto-tools/         → Cryptography tools
 │   ├── forensics-tools/      → Digital forensics
 │   └── misc-tools/           → Miscellaneous challenges
-│
-├── 00_templates/             ⚠️ 已遷移到 .agents/skills/pwn-exploits/templates/
-├── 01_bin_exploit/           ⚠️ 已遷移到 .agents/skills/pwn-exploits/
-├── 02_ics_traffic/           ⚠️ 已遷移到 .agents/skills/ics-traffic/
-├── 03_web/                   ⚠️ 已遷移到 .agents/skills/web-exploits/
-├── 04_crypto/                ⚠️ 已遷移到 .agents/skills/crypto-tools/
-├── 05_forensics/             ⚠️ 已遷移到 .agents/skills/forensics-tools/
-├── 06_misc/                  ⚠️ 已遷移到 .agents/skills/misc-tools/
-├── cheat_sheets/             ⚠️ 已遷移到各技能的 references/ 目錄
 │
 ├── scripts/                  🛠️ 安裝腳本
 │   ├── setup-arch-paru.sh    → Arch Linux 自動安裝
@@ -64,13 +55,13 @@ ctf-arsenal/
 │   └── ...
 │
 ├── static_bins/              💾 靜態二進位檔
+├── tests/                    🧪 測試與驗證腳本
+├── csc2025/                  📂 CSC 2025 比賽相關資源
 ├── README.md                 📘 本文件
 ├── AGENTS.md                 🤖 OpenCode Agent 指南
 └── pyproject.toml            🐍 Python 配置 (uv)
 ```
 
-**📌 路徑變更說明：**  
-舊版目錄（`00_templates/`, `01_bin_exploit/` 等）已移至 `.agents/skills/` 架構。舊目錄包含 `DEPRECATED.md` 檔案指向新位置。
 詳見 [`.agents/skills/README.md`](.agents/skills/README.md) 了解完整技能結構。
 
 ## 重要提醒

@@ -19,37 +19,38 @@ A comprehensive, **offline-capable** CTF toolkit for a **5-hour Jeopardy competi
 
 ```
 ctf-arsenal/
-├── 00_templates/          ⭐ MOST IMPORTANT - Copy & modify during competition
-│   ├── pwn_basic.py       → Pwntools template (Local/GDB/Remote auto-switch)
-│   ├── pwn_rop.py         → ROP chain + ret2libc template
-│   ├── solve.rs           → Rust multi-threaded bruteforce
-│   └── web_requests.py    → Python requests template
+├── .agents/skills/            ⭐ OpenCode Skills (all tools organized here)
+│   ├── pwn-exploits/         → Binary exploitation
+│   │   ├── templates/        → Pwn templates (pwn_basic.py, pwn_rop.py, etc.)
+│   │   ├── tools/            → checksec, offset_finder, etc.
+│   │   ├── gadgets/          → ROPgadget scripts
+│   │   └── references/       → GDB cheat sheets
+│   ├── ics-traffic/         → ICS/SCADA tools (Ettercap, Scapy)
+│   │   ├── mitm_scripts/      → Ettercap filters, ARP spoofing
+│   │   ├── scapy_scripts/     → Modbus sniffer/injector
+│   │   └── references/       → Ettercap usage guide
+│   ├── web-exploits/         → Web exploitation tools
+│   ├── crypto-tools/         → Cryptography tools
+│   ├── forensics-tools/      → Digital forensics tools
+│   └── misc-tools/           → Miscellaneous tools
 │
-├── 01_bin_exploit/        → Binary exploitation tools
-├── 02_ics_traffic/        ⚠️ CRITICAL for ICS challenges
-│   ├── mitm_scripts/      → Ettercap filters, Scapy ARP spoofing
-│   └── scapy_scripts/     → Modbus sniffer/injector
-│
-├── 03_web/                → Web exploitation (wordlists, payloads, shells)
-├── 04_crypto/             → Crypto tools
-├── 05_forensics/          → Forensics tools
-├── 06_misc/               → Miscellaneous
-│
-├── cheat_sheets/          📖 Quick reference guides
-│   ├── ettercap_usage.md  ⚠️ MUST READ before competition
-│   ├── gdb_cheatsheet.md
-│   └── linux_commands.md
-│
-├── scripts/               🛠️ Setup scripts (moved here for cleaner root)
+├── scripts/                  🛠️ Setup scripts
 │   ├── setup-arch-paru.sh
 │   ├── setup.sh
-│   ├── setup-optimized.sh
-│   └── INSTALL_INSTRUCTIONS.sh
+│   └── setup_gem_path.sh
 │
-├── static_bins/           💾 Static binaries for offline use
-├── README.md              📘 Main documentation
-├── pyproject.toml         🐍 uv configuration
-└── INSTALL_INSTRUCTIONS.md 📋 Step-by-step setup guide
+├── docs/                     📚 Documentation
+│   ├── SESSION_SUMMARY.md     → This file
+│   ├── INSTALL_INSTRUCTIONS.md → Setup guide
+│   ├── ARCH_PACKAGES.md      → Package reference
+│   └── SYSTEM_CHECK.md      → Installation checklist
+│
+├── tests/                    🧪 Validation scripts
+├── static_bins/              💾 Static binaries for offline use
+├── csc2025/                  📂 CSC 2025 competition resources
+├── README.md                 📘 Main documentation
+├── AGENTS.md                 🤖 OpenCode Agent guide
+└── pyproject.toml            🐍 uv configuration
 ```
 
 **Total**: 35 files, 2396+ lines of code
@@ -81,7 +82,7 @@ ctf-arsenal/
 
 ## 📝 Key Files Created
 
-### Templates (00_templates/)
+### Templates (.agents/skills/pwn-exploits/templates/)
 | File | Purpose |
 |------|---------|
 | `pwn_basic.py` | Pwntools template with auto Local/GDB/Remote switching |
@@ -89,7 +90,7 @@ ctf-arsenal/
 | `solve.rs` | Rust multi-threaded bruteforce template |
 | `web_requests.py` | Python requests template for web challenges |
 
-### ICS/SCADA Tools (02_ics_traffic/) ⚠️ CRITICAL
+### ICS/SCADA Tools (.agents/skills/ics-traffic/) ⚠️ CRITICAL
 | File | Purpose |
 |------|---------|
 | `mitm_scripts/arp_spoof.py` | Scapy ARP spoofing |
@@ -106,9 +107,9 @@ ctf-arsenal/
 | `ARCH_PACKAGES.md` | Arch Linux package reference |
 | `SYSTEM_CHECK.md` | Installed tools checklist |
 | `GIT_COMMITS.md` | Git workflow documentation |
-| `cheat_sheets/ettercap_usage.md` | ⚠️ MUST READ before competition |
-| `cheat_sheets/gdb_cheatsheet.md` | GDB/pwndbg commands |
-| `cheat_sheets/linux_commands.md` | Common Linux operations |
+| `.agents/skills/ics-traffic/references/ettercap_usage.md` | ⚠️ MUST READ before competition |
+| `.agents/skills/pwn-exploits/references/gdb_cheatsheet.md` | GDB/pwndbg commands |
+| `.agents/skills/misc-tools/references/linux_commands.md` | Common Linux operations |
 
 ---
 
@@ -133,7 +134,7 @@ c2033df feat(templates): add pwn and web exploitation templates
 - ✅ Clean working tree
 - ✅ All files committed
 - ✅ Conventional Commits format
-- ✅ Root directory organized (scripts moved to `scripts/`)
+- ✅ OpenCode Skills structure (`.agents/skills/`)
 - ⏳ Ready to push to remote
 
 ---
@@ -161,7 +162,7 @@ sudo sysctl -w net.ipv4.ip_forward=1
 
 **Pwn Challenge:**
 ```bash
-cp 00_templates/pwn_basic.py solve.py
+cp .agents/skills/pwn-exploits/templates/pwn_basic.py solve.py
 # Edit solve.py...
 python solve.py              # Test locally
 python solve.py GDB          # Debug
@@ -171,19 +172,19 @@ python solve.py REMOTE ip port  # Attack remote
 **ICS/SCADA Challenge:**
 ```bash
 # Read this first!
-cat cheat_sheets/ettercap_usage.md
+cat .agents/skills/ics-traffic/references/ettercap_usage.md
 
 # ARP spoofing
 sudo ettercap -T -i eth0 -M arp:remote /target_ip/ /gateway_ip/
 
 # With filter
-sudo etterfilter 02_ics_traffic/mitm_scripts/modbus_filter.etter -o /tmp/modbus.ef
+sudo etterfilter .agents/skills/ics-traffic/mitm_scripts/modbus_filter.etter -o /tmp/modbus.ef
 sudo ettercap -T -i eth0 -M arp:remote /target/ /gw/ -F /tmp/modbus.ef
 ```
 
 **Web Challenge:**
 ```bash
-cp 00_templates/web_requests.py solve.py
+cp .agents/skills/pwn-exploits/templates/web_requests.py solve.py
 # Edit and run
 ```
 
@@ -194,10 +195,10 @@ cp 00_templates/web_requests.py solve.py
 Before the competition starts:
 - [ ] Clone repo to competition machine
 - [ ] Run `bash scripts/setup-arch-paru.sh`
-- [ ] Test: `python 00_templates/pwn_basic.py`
+- [ ] Test: `python .agents/skills/pwn-exploits/templates/pwn_basic.py`
 - [ ] Test: `sudo ettercap -T -h` (should show help)
 - [ ] Enable IP forwarding: `sudo sysctl -w net.ipv4.ip_forward=1`
-- [ ] Review `cheat_sheets/ettercap_usage.md` ⚠️ MANDATORY
+- [ ] Review `.agents/skills/ics-traffic/references/ettercap_usage.md` ⚠️ MANDATORY
 - [ ] Verify GDB works: `gdb --version`
 - [ ] Check pwndbg loaded: `gdb -q -ex 'quit'`
 
@@ -255,11 +256,11 @@ sudo python scapy_script.py  # Uses system scapy
 
 These can be added later if needed:
 - [ ] More pwn templates (format string, heap exploitation)
-- [ ] Download wordlists (rockyou.txt) to `03_web/wordlists/`
-- [ ] Add web shells to `03_web/webshells/`
-- [ ] Create GDB config files in `01_bin_exploit/gdb_init/`
+- [ ] Download wordlists (rockyou.txt) to `.agents/skills/web-exploits/wordlists/`
+- [ ] Add web shells to `.agents/skills/web-exploits/webshells/`
+- [ ] Create GDB config files in `.agents/skills/pwn-exploits/gdb_init/`
 - [ ] Add more static binaries to `static_bins/`
-- [ ] Download SecLists to `03_web/wordlists/`
+- [ ] Download SecLists to `.agents/skills/web-exploits/wordlists/`
 
 ---
 
@@ -313,7 +314,7 @@ sudo python script.py  # Needs raw socket access
 ### Issue: Can't find rockyou.txt
 ```bash
 # Not included, download separately:
-cd 03_web/wordlists/
+cd .agents/skills/web-exploits/wordlists/
 wget https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
 ```
 
@@ -341,12 +342,12 @@ wget https://github.com/brannondorsey/naive-hashcat/releases/download/data/rocky
 ## 🎉 Final Status
 
 **✅ Project Setup: COMPLETE**
-- Directory structure: Organized
+- Directory structure: Organized (OpenCode Skills)
 - Tools: Installed and verified
 - Templates: Ready to use
 - Documentation: Comprehensive
 - Git: Clean history, ready to push
-- Root directory: Clean (scripts moved to `scripts/`)
+- Deprecated directories: Removed
 
 **⏳ Next Steps:**
 1. Test all templates work correctly
@@ -370,7 +371,7 @@ If continuing this project in a new session:
 1. Read this file first (SESSION_SUMMARY.md)
 2. Check git status: `cd ctf-arsenal && git log --oneline -10`
 3. Review TODO items above
-4. Test templates: `python 00_templates/pwn_basic.py`
+4. Test templates: `python .agents/skills/pwn-exploits/templates/pwn_basic.py`
 
 **Project is production-ready for CTF competition.**
 

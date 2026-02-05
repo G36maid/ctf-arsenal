@@ -72,7 +72,7 @@ cd ctf-arsenal
 source .venv/bin/activate
 
 # 或直接用 uv run
-uv run python 00_templates/pwn_basic.py
+uv run python .agents/skills/pwn-exploits/templates/pwn_basic.py
 ```
 
 ---
@@ -187,12 +187,12 @@ gdb -q -ex 'quit'
 ### 開發 Exploit
 ```bash
 cd ctf-arsenal
-uv run python 00_templates/pwn_basic.py
+uv run python .agents/skills/pwn-exploits/templates/pwn_basic.py
 ```
 
 ### 使用 Scapy (需要 root)
 ```bash
-cd ctf-arsenal/02_ics_traffic/scapy_scripts
+cd ctf-arsenal/.agents/skills/ics-traffic/scapy_scripts
 sudo python modbus_sniffer.py
 ```
 

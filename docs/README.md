@@ -70,10 +70,10 @@
 ## 📂 其他重要文檔位置
 
 ### 快速參考 (Cheat Sheets)
-位於 [`../cheat_sheets/`](../cheat_sheets/)
-- [`ettercap_usage.md`](../cheat_sheets/ettercap_usage.md) - ⚠️ 工控題必讀
-- [`gdb_cheatsheet.md`](../cheat_sheets/gdb_cheatsheet.md) - GDB/pwndbg 指令
-- [`linux_commands.md`](../cheat_sheets/linux_commands.md) - Linux 常用指令
+位於各技能的 `references/` 目錄：
+- [`.agents/skills/ics-traffic/references/ettercap_usage.md`](../.agents/skills/ics-traffic/references/ettercap_usage.md) - ⚠️ 工控題必讀
+- [`.agents/skills/pwn-exploits/references/gdb_cheatsheet.md`](../.agents/skills/pwn-exploits/references/gdb_cheatsheet.md) - GDB/pwndbg 指令
+- [`.agents/skills/misc-tools/references/linux_commands.md`](../.agents/skills/misc-tools/references/linux_commands.md) - Linux 常用指令
 
 ### 安裝腳本
 位於 [`../scripts/`](../scripts/)
@@ -91,11 +91,11 @@
 ### 文檔組織原則
 1. **根目錄**: 只保留 README.md (入口文檔)
 2. **docs/**: 詳細參考文檔與技術說明
-3. **cheat_sheets/**: 競賽中快速查閱的指令參考
+3. **.agents/skills/*/references/**: 競賽中快速查閱的指令參考（各技能專屬）
 
 ### 新增文檔時
 - 技術說明 → 放在 `docs/`
-- 快速參考 → 放在 `cheat_sheets/`
+- 快速參考 → 放在相關技能的 `references/` 目錄
 - 更新本 README.md 的文檔列表
 
 ---

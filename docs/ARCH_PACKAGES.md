@@ -180,9 +180,9 @@ paru -S hexyl xxd
    ```
 
 3. **工控題必讀**
-   ```bash
-   cat cheat_sheets/ettercap_usage.md
-   ```
+    ```bash
+    cat .agents/skills/ics-traffic/references/ettercap_usage.md
+    ```
 
 4. **比賽前測試**
    - 測試 pwntools 模板

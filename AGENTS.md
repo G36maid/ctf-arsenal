@@ -297,7 +297,7 @@ offset = cyclic_find(core.rsp)
 ### File Organization
 
 ```
-.agents/skills/        # OpenCode skills structure (NEW)
+.agents/skills/        # OpenCode skills structure
 ├── pwn-exploits/      # Binary exploitation (templates, tools, gadgets)
 ├── web-exploits/      # Web exploitation (payloads, webshells)
 ├── ics-traffic/       # ICS/SCADA (Scapy, Ettercap, protocol docs)
@@ -306,17 +306,10 @@ offset = cyclic_find(core.rsp)
 └── misc-tools/        # Miscellaneous (esoteric languages, QR codes)
 
 scripts/               # Setup scripts
+tests/                 # Test and validation scripts
 static_bins/           # Static binaries for offline use
-
-# Old directories (DEPRECATED - see DEPRECATED.md in each)
-00_templates/          → .agents/skills/pwn-exploits/templates/
-01_bin_exploit/        → .agents/skills/pwn-exploits/
-02_ics_traffic/        → .agents/skills/ics-traffic/
-03_web/                → .agents/skills/web-exploits/
-04_crypto/             → .agents/skills/crypto-tools/
-05_forensics/          → .agents/skills/forensics-tools/
-06_misc/               → .agents/skills/misc-tools/
-cheat_sheets/          → (split into skills' references/ dirs)
+docs/                  # Technical documentation
+csc2025/               # CSC 2025 competition resources
 ```
 
 ---

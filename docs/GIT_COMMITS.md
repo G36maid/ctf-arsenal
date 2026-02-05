@@ -169,7 +169,7 @@ git log --oneline --graph --all
 git show <commit-hash>
 
 # 查看某個文件的歷史
-git log --follow -- 00_templates/pwn_basic.py
+git log --follow -- .agents/skills/pwn-exploits/templates/pwn_basic.py
 
 # 查看統計
 git log --stat
