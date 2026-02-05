@@ -7,6 +7,59 @@ CTF Arsenal is a toolkit for security competitions (Capture The Flag). Contains 
 **Project Type**: CTF utility scripts and exploit templates (NOT a standard software project)
 **Primary Language**: Python 3.10+
 **Key Focus**: Speed and pragmatism over strict engineering discipline
+**Architecture**: OpenCode Skills-based structure in `.agents/skills/`
+
+---
+
+## OpenCode Skills System
+
+**CTF Arsenal is now organized as OpenCode-compatible skills.** All tools are located in `.agents/skills/` directory.
+
+### Available Skills
+
+| Skill | Category | Trigger Keywords | Location |
+|-------|----------|------------------|----------|
+| `pwn-exploits` | Binary Exploitation | pwn, binary, exploit, overflow, rop, shellcode, pwntools | [.agents/skills/pwn-exploits/](.agents/skills/pwn-exploits/) |
+| `web-exploits` | Web Security | web, sqli, xss, lfi, ssti, csrf, upload, injection | [.agents/skills/web-exploits/](.agents/skills/web-exploits/) |
+| `ics-traffic` | ICS/SCADA | ics, scada, modbus, iec104, dnp3, mitm, ettercap | [.agents/skills/ics-traffic/](.agents/skills/ics-traffic/) |
+| `crypto-tools` | Cryptography | crypto, rsa, cipher, xor, caesar, vigenere | [.agents/skills/crypto-tools/](.agents/skills/crypto-tools/) |
+| `forensics-tools` | Digital Forensics | forensics, steg, pcap, binwalk, file carving | [.agents/skills/forensics-tools/](.agents/skills/forensics-tools/) |
+| `misc-tools` | Miscellaneous | misc, brainfuck, qr, barcode, spectrogram | [.agents/skills/misc-tools/](.agents/skills/misc-tools/) |
+
+### Using Skills with OpenCode
+
+Each skill has a `SKILL.md` file containing:
+- **YAML frontmatter**: Metadata for OpenCode discovery
+- **When to Use**: Clear triggers for when to load the skill
+- **Workflows**: Step-by-step patterns for common CTF scenarios
+- **Bundled Resources**: List of templates, tools, and references
+- **Quick Reference**: Command summaries and examples
+
+**Example: Loading a skill in OpenCode**
+```typescript
+// Load pwn-exploits skill for binary exploitation tasks
+skill({ name: "pwn-exploits" })
+
+// Agent now has access to:
+// - Pwntools workflows and patterns
+// - ROP chain construction steps
+// - GDB debugging procedures
+// - Template locations and usage
+```
+
+### Skill Structure
+
+Each skill follows this pattern:
+```
+.agents/skills/<skill-name>/
+├── SKILL.md              # Skill definition (REQUIRED)
+├── templates/            # Starter templates for competitions
+├── tools/                # Helper scripts and utilities
+├── references/           # Cheat sheets and documentation
+└── [category-specific]   # Payloads, wordlists, filters, etc.
+```
+
+**See [.agents/skills/README.md](.agents/skills/README.md) for complete skills documentation.**
 
 ---
 
@@ -53,7 +106,7 @@ python solve.py REMOTE IP PORT   # Remote
 ### System Tools Setup
 ```bash
 # GDB configuration
-cp 01_bin_exploit/gdb_init/gdbinit-pwndbg ~/.gdbinit
+cp .agents/skills/pwn-exploits/gdb_init/gdbinit-pwndbg ~/.gdbinit
 
 # Enable IP forwarding (required for MITM attacks)
 sudo sysctl -w net.ipv4.ip_forward=1
@@ -68,10 +121,10 @@ source scripts/setup_gem_path.sh  # Temporary
 **No formal test suite.** Manual verification only:
 ```bash
 # Test pwn template works
-python 00_templates/pwn_basic.py
+python .agents/skills/pwn-exploits/templates/pwn_basic.py
 
 # Or with uv:
-# uv run python 00_templates/pwn_basic.py
+# uv run python .agents/skills/pwn-exploits/templates/pwn_basic.py
 
 # Verify dependencies
 python -c "from pwn import *; print('OK')"
@@ -153,7 +206,7 @@ def CalculateOffset():
 
 ### Pwntools Patterns
 
-Templates in `00_templates/` demonstrate standard patterns:
+Templates in `.agents/skills/pwn-exploits/templates/` demonstrate standard patterns:
 
 ```python
 # Binary setup
@@ -244,16 +297,26 @@ offset = cyclic_find(core.rsp)
 ### File Organization
 
 ```
-00_templates/      # Starter templates (COPY & MODIFY)
-01_bin_exploit/    # Binary exploitation tools
-02_ics_traffic/    # ICS/SCADA scripts (Ettercap, Scapy)
-03_web/            # Web exploitation
-04_crypto/         # Cryptography tools
-05_forensics/      # Forensics
-06_misc/           # Miscellaneous
-cheat_sheets/      # Quick reference guides
-scripts/           # Setup scripts
-static_bins/       # Static binaries for offline use
+.agents/skills/        # OpenCode skills structure (NEW)
+├── pwn-exploits/      # Binary exploitation (templates, tools, gadgets)
+├── web-exploits/      # Web exploitation (payloads, webshells)
+├── ics-traffic/       # ICS/SCADA (Scapy, Ettercap, protocol docs)
+├── crypto-tools/      # Cryptography (RSA, classical ciphers)
+├── forensics-tools/   # Forensics (file analysis, steganography)
+└── misc-tools/        # Miscellaneous (esoteric languages, QR codes)
+
+scripts/               # Setup scripts
+static_bins/           # Static binaries for offline use
+
+# Old directories (DEPRECATED - see DEPRECATED.md in each)
+00_templates/          → .agents/skills/pwn-exploits/templates/
+01_bin_exploit/        → .agents/skills/pwn-exploits/
+02_ics_traffic/        → .agents/skills/ics-traffic/
+03_web/                → .agents/skills/web-exploits/
+04_crypto/             → .agents/skills/crypto-tools/
+05_forensics/          → .agents/skills/forensics-tools/
+06_misc/               → .agents/skills/misc-tools/
+cheat_sheets/          → (split into skills' references/ dirs)
 ```
 
 ---
@@ -347,7 +410,7 @@ def exploit(offset, payload):
    # - Find comparison operations (password checks)
    
    # Or use batch decompile script:
-   python 01_bin_exploit/decompile.py ./vuln
+   python .agents/skills/pwn-exploits/decompile.py ./vuln
    
    # Step 3: Dynamic debugging (verify findings)
    python solve.py GDB
@@ -355,14 +418,14 @@ def exploit(offset, payload):
 
 2. **Dynamic Exploitation** (pwn challenges):
    - After understanding the binary through static analysis
-   - Use templates from `00_templates/`
+   - Use templates from `.agents/skills/pwn-exploits/templates/`
    - Follow the standard pwn flow: checksec → offset → leak → ROP → shell
 
 **Key principle**: Understand before exploiting. Static analysis reveals logic; dynamic exploitation confirms and triggers vulnerabilities.
 
 ### Creating New Exploit Scripts
 
-1. **Copy from templates**: Always start from `00_templates/`
+1. **Copy from templates**: Always start from `.agents/skills/pwn-exploits/templates/`
 2. **Modify minimally**: Only change what's needed for the challenge
 3. **Test locally first**: Run without `REMOTE` flag
 4. **Add GDB script** if debugging is needed
@@ -370,14 +433,14 @@ def exploit(offset, payload):
 
 ### Adding New Tools
 
-1. Place in appropriate category directory (01-06)
+1. Place in appropriate skill directory (`.agents/skills/<skill-name>/`)
 2. Add shebang and brief docstring
 3. Test with sample inputs if possible
-4. Update README if it's a core tool
+4. Update skill's SKILL.md if it's a core tool
 
 ### Documentation
 
-- **Cheat sheets** go in `cheat_sheets/` (quick reference)
+- **Skill-specific docs** go in `<skill>/references/` (quick reference)
 - **Technical docs** go in `docs/` (detailed information)
 - Keep README concise, defer details to docs/
 
