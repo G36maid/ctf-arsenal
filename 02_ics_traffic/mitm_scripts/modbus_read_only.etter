@@ -1,0 +1,8 @@
+if (ip.proto == TCP && tcp.dst == 502) {
+    if (DATA.data + 7 == 0x03 || DATA.data + 7 == 0x04) {
+        msg("Modbus Read function detected - ALLOWING\n");
+    } else if (DATA.data + 7 != 0x00) {
+        msg("Non-read Modbus function - DROPPING\n");
+        drop();
+    }
+}

@@ -1,0 +1,6 @@
+if (ip.proto == TCP && tcp.dst == 20000) {
+    if (DATA.data + 2 == 0x81 || DATA.data + 2 == 0x82) {
+        msg("DNP3 command detected - BLOCKING\n");
+        drop();
+    }
+}

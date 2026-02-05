@@ -1,0 +1,6 @@
+if (ip.proto == TCP && tcp.dst == 2404) {
+    if (DATA.data + 6 == 0x64 || DATA.data + 6 == 0x65) {
+        msg("IEC 104 command detected - BLOCKING\n");
+        drop();
+    }
+}
