@@ -52,3 +52,24 @@ setup.log
 03_web/wordlists/SecLists/
 static_bins/*.tar.gz
 static_bins/*.zip
+
+# Tests directory (validation scripts only)
+tests/stage*/
+tests/vuln
+tests/*.md
+tests/*.c
+tests/*.py
+
+# Ghidra project files
+*.gpr
+*.rep/
+
+# uv lock file
+uv.lock
+
+# CTF Challenges - Large files and tools
+**/hashcat/
+**/passwords.txt
+**/national_ids_*.txt
+**/*.exe_extracted/
+**/*.exe_extracted_duplicate/
