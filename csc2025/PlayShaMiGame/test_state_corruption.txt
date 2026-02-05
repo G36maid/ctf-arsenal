@@ -1,0 +1,17 @@
+# Strategy: Use special skill to set up state, then wish immediately
+# The idea: maybe special skill sets a global variable that wish_ultimate_power checks
+
+Hacker
+4  # Heal and prepare
+4  # Heal and prepare
+1  # Heal and prepare
+4  # Heal and prepare
+4  # Heal and prepare
+4  # Heal and prepare
+
+# Use special skill with a value
+3
+0xaaaaaaab  # 32-bit solution
+
+# IMMEDIATELY select wish 2
+2

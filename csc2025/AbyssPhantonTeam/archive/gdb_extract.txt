@@ -1,8 +1,0 @@
-set pagination off
-break *main.validatePassword
-run
-continue
-CSC2250PASSWORD
-# Try to find where encrypted data is
-x/64xb 0x5743b0
-quit

@@ -1,0 +1,26 @@
+# Test sequence: win game first, then try negative magic value at wish
+
+# 1. Name and start fight
+Hacker
+
+# 2. Quick win (attack + heal)
+4
+1
+4
+1
+4
+1
+4
+1
+4
+1
+4
+1
+1
+4
+1
+4
+1
+
+# 3. Send negative 32-bit magic value
+-2863311539

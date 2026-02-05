@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+    <head>
+        <title>海貓銀行 Seacat Bank</title>
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
+        <div id="content">
+            <img style="width: 50%;" src="/static/logo.png" alt="Bank Logo">
+            <h1>&#xFFFD;歡迎使用&#xFFFD;&#xFFFD;網路銀行服務</h1>
+            <form action="app.php" method="post" autocomplete="off">
+                <div>
+                    <label for="userid">使用者代號</label>
+                    <br>
+                    <input type="text" id="userid" name="userid" required />
+                </div>
+                <div>
+                    <label for="passwd">使用者密碼</label>
+                    <br>
+                    <input type="password" id="passwd" name="passwd" required />
+                </div>
+                <div>
+                    <label for="captcha">驗證碼</label>
+                    <img style="width: 160px;" src="/static/captcha.png" alt="CAPTCHA">
+                    <br>
+                    <input type="text" id="captcha" name="captcha" required />
+                </div>
+                <div>
+                    <button type="submit">登入系統</button>
+                </div>
+            </form>
+            <div>
+                <p>
+                    注意：
+                    <ol>
+                        <li>若忘記使用者代號／密碼或者需要修改密碼，請於工作日上午十一點至下午四點間至全國海貓銀行各分行，排隊至少三小時，即可臨櫃辦理重置密碼。</li>
+                        <li>根據本行資安政策，為維護使用者安全，每７２小時將強制修改一次密碼。為確保密碼強度，所有密碼必須符合以下規則：</li>
+                        <ul>
+                            <li>密碼長度需為六個字元以上，十個字元以下。
+                            <li>需包含至少一個大寫英文字母。</li>
+                            <li>需包含至少一個小寫英文字母。</li>
+                            <li>需包含至少一個數字。</li>
+                            <li>兩字母之間需間隔至少三個其他字元。</li>
+                            <li>不得包含任何相同或相差１的數字。</li>
+                            <li>不得包含任何特殊符號或空白。</li>
+                            <li>不得包含使用者代號中的任何字元。</li>
+                            <li>不得包含使用者的生日、電話號碼、身份證字號、電子郵件、體重、配偶生日、寵物年齡、載具編號、住家經緯度、其他網站密碼或曾於本行使用之舊密碼。</li>
+                        </ul>
+                    </ol>
+                </p>
+            </div>
+            <div id="footer">
+                &copy; 海貓銀行 Copyright Seacat Bank. All Rights Reserved.
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,13 @@
+b *0x113dd35
+commands
+silent
+printf "[USER_INPUT_ENCRYPTED] "
+x/29bx $rax
+printf "[EXPECTED_FLAG_PTR] RSI points to: 0x%lx\n", $rsi
+printf "[EXPECTED_FLAG_PTR_DEREF] Reading from RSI: "
+set $flag_ptr = *(long*)$rsi
+printf "Flag data pointer: 0x%lx\n", $flag_ptr
+x/29bx $flag_ptr
+c
+end
+r

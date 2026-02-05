@@ -1,0 +1,2 @@
+/tmp/gdb_commands.txt:5: Error in sourced command file:
+No symbol table is loaded.  Use the "file" command.

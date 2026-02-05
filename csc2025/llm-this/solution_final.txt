@@ -1,0 +1,93 @@
+================================================================================
+CSC2025 - "PastedLM this" (Reverse Engineering, 600 points)
+================================================================================
+
+FLAG: CSC{l0ng_1Iv3_rev3rs3_3ng!nEer5_9beff18934}
+
+================================================================================
+Solution Steps
+================================================================================
+
+1. Initial Analysis
+   - Binary is UPX packed with modified header (magic bytes changed to spaces)
+   - Standard unpacking with "upx -d" works but produces different behavior
+   - Packed binary outputs "Hi!" before main program, unpacked doesn't
+
+2. Memory Analysis
+   - Used GDB to trace execution and found "Hi!" is printed from UPX stub
+   - Dumped memory region around "Hi!" string
+   - Found XOR-encrypted data: b0b693f0b19cb0f0a091a6f49ca8a69a
+
+3. Key Discovery
+   - Applied single-byte XOR brute force on encrypted data
+   - XOR key 0xc3 decodes to: "suP3r_s3cRe7_keY"
+   - Key is stored at offset 0x15a4 in packed binary
+
+4. Dynamic Behavior Discovery (KEY INSIGHT!)
+   - Used strace to monitor system calls
+   - Found program attempts to open /tmp/2404917857
+   - Program behavior changes based on this file's existence and content
+
+5. Triggering Hidden Functionality
+   - Created /tmp/2404917857 with content "suP3r_s3cRe7_keY"
+   - When key is correct, program creates /tmp/3404927857
+   - The new file contains the real flag!
+
+================================================================================
+Commands to Get Flag
+================================================================================
+
+# Step 1: Create the magic file with correct key
+echo "suP3r_s3cRe7_keY" > /tmp/2404917857
+
+# Step 2: Run the packed binary
+echo "anything" | ./llm-this
+
+# Step 3: Read the flag from output file
+cat /tmp/3404927857
+
+# Clean up
+rm /tmp/2404917857 /tmp/3404927857
+
+================================================================================
+Key Tools Used
+================================================================================
+
+- strace: System call tracing to discover file operations
+- GDB: Memory dumping and execution tracing
+- Python: XOR decryption and automation
+- xxd: Hex dump analysis
+
+================================================================================
+Challenge Design Notes
+================================================================================
+
+Anti-LLM Techniques:
+- Modified UPX header to waste analysis time
+- Decoy flag (C5C{n0t_th1s_t1m3}) to mislead
+- Dynamic behavior requiring execution, not static analysis
+- File system interaction hidden in UPX stub
+
+"Old Tricks" (Traditional Reverse Engineering):
+- System call tracing with strace (not AST-based analysis)
+- Dynamic execution analysis over static decompilation
+- Memory dumping during runtime
+- Understanding packer behavior
+
+The challenge title "PastedLM this" and description warning about wasting
+tokens was a meta-hint: LLMs would burn resources on static analysis while
+human reverse engineers would quickly use strace/ltrace to see the file check.
+
+Flag message "long live reverse engineers" is ironic given the challenge's
+anti-LLM theme.
+
+================================================================================
+False Leads We Explored
+================================================================================
+
+1. Decoy flag C5C{n0t_th1s_t1m3} in unpacked binary (WRONG)
+2. Attempting to fix UPX header with upx-recovery-tool (unnecessary)
+3. Extensive Ghidra decompilation (only shows UPX stub)
+4. Searching for CSC{ pattern in binary data (flag is generated at runtime)
+
+The real solution required dynamic analysis, not static reverse engineering.

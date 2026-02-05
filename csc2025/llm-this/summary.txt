@@ -1,0 +1,25 @@
+Challenge Title: PastedLM this
+Points: 600
+
+Description:
+"2025 年「逆向工程」被大語言模型搞爛了
+但只要用點老把戲，一般的逆向工程師在這還是能輕鬆超過 LLM
+逆向工程萬歲！
+
+不要浪費你寶貴的 Token 在這個題目上，不值得！
+Note: 本題 Flag 格式為 CSC{printable ascii}"
+
+Key Points:
+- Title emphasizes "Pasted"
+- Says "don't waste tokens" - ironic given we're using LLM
+- Uses "old tricks" - UPX confirmed
+- Format: CSC{printable ascii}
+
+What we found:
+- Decoy flag: C5C{n0t_th1s_t1m3} (not this time)
+- Modified UPX header (spaces instead of UPX!)
+- "Hi!" output only from UPX stub
+- Recovery tool partially fixed but still broken
+
+Missing piece: 
+The REAL flag must be somewhere we haven't looked yet.

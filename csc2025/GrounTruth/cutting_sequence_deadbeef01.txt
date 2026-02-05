@@ -1,0 +1,39 @@
+======================================================================
+Ground Truth Bomb - Cutting Sequence (Seed: deadbeef01)
+======================================================================
+
+STEP   LABEL    GPIO   POSITION            
+----------------------------------------------------------------------
+1      u10      10     RIGHT               
+2      u14      14     RIGHT               
+3      u15      15     RIGHT               
+4      u11      11     RIGHT               
+5      u15      22     BOTTOM              
+6      u12      12     RIGHT               
+7      u12      19     BOTTOM              
+8      u8       8      [TOP-LEFT]          
+9      u13      20     BOTTOM              
+10     u11      18     BOTTOM              
+11     u10      17     BOTTOM              
+12     u13      13     RIGHT               
+13     u0       0      [TOP-RIGHT]         
+14     u9       9      RIGHT               
+15     u14      21     BOTTOM              
+16     u9       16     BOTTOM              
+
+======================================================================
+IMPORTANT NOTES:
+======================================================================
+Label Mapping:
+  u8  = GPIO 8  (Left-Top)
+  u0  = GPIO 0  (Right-Top)
+  u9-u15 = GPIO 9-15 (Right Column, top to bottom)
+  u15-u9 = GPIO 15-16 (Bottom Row, right to left)
+
+1. Left-Top u8 (GPIO 8) -> First key marker
+2. Right-Top u0 (GPIO 0) -> Last key marker
+3. Right Column u9-u15 -> GPIO 9-15 (top to bottom)
+4. Bottom Row u15-u9 -> GPIO 15-16 (right to left)
+5. Cut from step 1 to 16 in order
+6. Cutting wrong order = EXPLOSION
+7. Cutting all correctly = FLAG displayed

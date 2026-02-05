@@ -1,0 +1,15 @@
+b *0x113dc9d
+commands
+silent
+printf "[BEFORE_RC4_INIT] Key pointer (RDX): 0x%lx, Length (RBX): %lu\n", $rdx, $rbx
+printf "[KEY] "
+x/16bx $rdx
+c
+end
+b *0x113dca2
+commands
+silent
+printf "[AFTER_RC4_INIT] RC4 state initialized\n"
+c
+end
+r

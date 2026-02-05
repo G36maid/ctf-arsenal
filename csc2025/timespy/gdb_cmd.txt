@@ -1,0 +1,11 @@
+b *0x113dd35
+commands
+silent
+printf "[FLAG_CMP] User input (RAX): "
+x/29bx $rax
+printf "[FLAG_CMP] Expected flag (at $rbx from 0x11b5300): "
+x/29bx 0x11b5300
+printf "[FLAG_CMP] RDX (len1): %lu, RCX (len2): %lu\n", $rdx, $rcx
+c
+end
+r

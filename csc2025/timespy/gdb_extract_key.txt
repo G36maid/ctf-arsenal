@@ -1,0 +1,20 @@
+# GDB script to extract the RC4 key
+set pagination off
+set logging file key_extract.log
+set logging overwrite on
+set logging on
+
+# Break at RC4 init function (after key derivation)
+b *0x1140e50
+commands
+silent
+# Key is passed in RDX:RBX (pointer and length)
+printf "[KEY] Address: 0x%lx, Length: %lu\n", $rdx, $rbx
+x/16bx $rdx
+continue
+end
+
+# Run with test input
+r < <(echo "A"*29)
+
+quit

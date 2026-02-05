@@ -1,0 +1,31 @@
+======================================================================
+Ground Truth Bomb - Cutting Sequence (Seed: 2dcf462904)
+======================================================================
+
+STEP   GPIO   LOGIC      POSITION            
+----------------------------------------------------------------------
+1      12     4          RIGHT               
+2      9      1          RIGHT               
+3      16     15         BOTTOM              
+4      11     3          RIGHT               
+5      15     7          RIGHT               
+6      19     12         BOTTOM              
+7      8      0          [LEFT-TOP]          
+8      14     6          RIGHT               
+9      18     13         BOTTOM              
+10     13     5          RIGHT               
+11     21     10         BOTTOM              
+12     0      8          [RIGHT-TOP]         
+13     20     11         BOTTOM              
+14     10     2          RIGHT               
+15     22     9          BOTTOM              
+16     17     14         BOTTOM              
+
+======================================================================
+IMPORTANT NOTES:
+======================================================================
+1. Left-Top GPIO 8 -> This is the first key marker
+2. Right-Top GPIO 0 -> This is the last key marker
+3. Cut from step 1 to 16 in order
+4. Cutting wrong order = EXPLOSION
+5. Cutting all correctly = FLAG displayed
