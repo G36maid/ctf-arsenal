@@ -1,93 +1,75 @@
-# PlayShaMiGame CTF Challenge - Complete Analysis
+# PlayShaMiGame - CSC2025
 
-## Challenge Overview
-Text-based RPG game where you fight a "Corrupted AI". Goal is to get shell access.
+## 題目類型
+Pwn (Binary Exploitation)
 
-## Files
-- `game_server.bin` - Downloaded ELF binary (from product_id=0)
-- `solve.py` - Basic special skill exploit attempt
-- `solve_legit.py` - Legitimate gameplay path
-- `ANALYSIS.md` - Detailed reverse engineering notes
+## 題目描述
+文字 RPG 遊戲的二進位程式，需要找到漏洞繞過遊戲邏輯取得 flag。
 
-## Binary Analysis Summary
+## 狀態
+❌ **未解題**
 
-### Key Functions
+## 嘗試過的攻擊向量
 
-1. **`cast_special_skillv()` (0x401476)**
-   - Reads up to 0x200 bytes of input
-   - Converts to number with `atoll()`
-   - Calculates: `result = input^2 * 3`
-   - Compares with magic value: `0xb5f72f1ded389973`
-   - If equal: throws "Crystal Overload!" exception
+### 1. 正常遊玩路徑
+- 嘗試透過正常遊戲流程達成觸發條件
+- **結果**: 數學上無法達成（`x² × 3 = 0xb5f72f1ded389973` 無整數解）
 
-2. **`wish_ultimate_powerv()` (0x402102)**
-   - Displays "Admin panel accessed. But nothing is here."
-   - Catches "Crystal Overload!" exception
-   - On exception: prints "Something went wrong" → "Entering debug mode" → calls `system("/bin/sh")`
+### 2. Buffer Overflow
+- 嘗試溢出緩衝區覆蓋返回地址
+- **結果**: 被 stack canary 阻擋
 
-3. **`grant_wishesv()` (0x401cb3)**  
-   - Called after defeating AI
-   - Offers 3 wishes
-   - Option 2 calls `wish_ultimate_power()`
+### 3. Integer Overflow
+- 嘗試利用整數溢出達成觸發條件
+- **結果**: 無法找到匹配的溢出值
 
-### The Vulnerability
+### 4. Exception Carryover
+- 嘗試讓 C++ 例外跨函數傳遞
+- **結果**: 例外處理機制無法繞過
 
-The magic comparison value `0xb5f72f1ded389973` has **no integer solution**:
-```python
-# Need: x^2 * 3 = 0xb5f72f1ded389973
-# Solution: x ≈ 2090613996.389 (not an integer!)
+## 關鍵技術
+- **Binary Exploitation**: Buffer Overflow, Integer Overflow
+- **C++ Reverse Engineering**: Exception handling
+- **Dynamic Analysis**: GDB debugging
+
+## 使用工具
+- GDB + pwntools
+- Ghidra/IDA
+- Python exploit scripts
+
+## 目錄結構
+```
+PlayShaMiGame/
+├── challenge/          # 原始題目檔案
+│   ├── game_server.bin # 題目二進位
+│   ├── game_server     # 題目說明
+│   ├── token           # Flag token（未成功取得）
+│   └── challenge_description.md
+├── solution/           # 解題嘗試
+│   └── solve.py        # 最接近成功的腳本
+├── docs/               # 分析文檔
+│   ├── README.md       # 完整分析
+│   └── FINAL_STATUS.md # 最終狀態（UNSOLVED）
+└── archive/            # 其他嘗試
+    ├── exploit.py
+    ├── exploit_exception_carry.py
+    ├── exploit_special.py
+    └── ...
 ```
 
-This appears intentionally impossible, suggesting alternate paths.
+## 失敗原因總結
 
-### Exploitation Strategies
+1. **數學不可能**: 觸發條件 `x² × 3 = 0xb5f72f1ded389973` 在整數域無解
+2. **例外處理不可達**: Exception handler 無法透過正常遊戲流程觸發
+3. **多重防護**: Stack canary, ASLR, NX 等防護機制
 
-#### Strategy 1: Legitimate Gameplay (RECOMMENDED)
-1. Attack the AI repeatedly (option 1)
-2. Win the game
-3. Choose wish option 2 ("Ultimate Power")
-4. Function somehow triggers the exception → spawns shell
+## 學習心得
 
-**Implementation**: `solve_legit.py`
+雖然未能解題，但過程中學到：
+- 複雜的 C++ 例外處理機制
+- 多層防護的繞過策略思考
+- 動態分析與靜態分析的結合運用
 
-#### Strategy 2: Buffer Overflow (DIFFICULT)
-- Buffer at `[rbp-0x110]`, result at `[rbp-0x118]`
-- Result is BEFORE buffer in memory → cannot overflow forward
-- `atoll()` stops at non-digits → limits injection
-- Stack canary present
-
-#### Strategy 3: Integer Overflow (TESTED - FAILED)
-- Tested values near INT64_MAX/MIN
-- No wraparound produces the magic value
-
-## Download URLs
-
-```bash
-# Game binary (ELF)
-curl http://192.168.100.121:30021/download?product_id=0 -o game_server.bin
-
-# Challenge description
-curl http://192.168.100.121:30021/download?product_id=2
-
-# product_id=1 requires token (payment bypass - failed)
-```
-
-## Running the Exploit
-
-```bash
-# When instance is active:
-python3 solve_legit.py 192.168.100.121 40021
-```
-
-## Next Steps
-- [ ] Test solve_legit.py against live instance
-- [ ] If that fails, investigate exception handling flow more deeply
-- [ ] Consider alternate triggers for the exception
-
-## Technical Notes
-
-- Binary: x86-64 ELF, dynamically linked, not stripped
-- Stack canary: enabled
-- NX: enabled  
-- PIE: disabled
-- C++ exceptions used for control flow (unusual in CTF)
+## 參考資料
+- C++ Exception Handling: https://en.cppreference.com/w/cpp/language/exceptions
+- Stack Canary: https://en.wikipedia.org/wiki/Stack_buffer_overflow#Stack_canaries
