@@ -92,27 +92,39 @@ ctf-arsenal/
 
 ### Pwn 題快速流程
 
-1. **複製模板**
+**0. 靜態分析** (rev 題型或首次接觸):
+   ```bash
+   # 查找字串線索
+   strings ./vuln | grep -i flag
+   
+   # Ghidra 反編譯理解邏輯
+   # 或用批次反編譯: python 01_bin_exploit/decompile.py vuln
+   
+   # GDB 動態驗證
+   python solve.py GDB
+   ```
+
+**1. 複製模板**
    ```bash
    cp 00_templates/pwn_basic.py solve.py
    ```
 
-2. **檢查保護**
+**2. 檢查保護**
    ```bash
    checksec ./vuln
    ```
 
-3. **找 offset**
+**3. 找 offset**
    ```python
    python solve.py
    ```
 
-4. **GDB 調試**
+**4. GDB 調試**
    ```bash
    python solve.py GDB
    ```
 
-5. **打遠端**
+**5. 打遠端**
    ```bash
    python solve.py REMOTE 192.168.1.100 1337
    ```

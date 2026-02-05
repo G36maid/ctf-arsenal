@@ -332,6 +332,34 @@ def exploit(offset, payload):
 
 ## Workflow Guidelines
 
+### Binary Analysis Workflow
+
+**Preferred approach: Static analysis first, then dynamic exploitation**
+
+1. **Static Analysis** (especially for rev/reverse engineering):
+   ```bash
+   # Step 1: Search for strings
+   strings ./vuln | grep -iE "flag|password|key|secret"
+   
+   # Step 2: Decompile with Ghidra/IDA
+   # - Understand program logic
+   # - Identify dangerous functions (gets, strcpy, scanf)
+   # - Find comparison operations (password checks)
+   
+   # Or use batch decompile script:
+   python 01_bin_exploit/decompile.py ./vuln
+   
+   # Step 3: Dynamic debugging (verify findings)
+   python solve.py GDB
+   ```
+
+2. **Dynamic Exploitation** (pwn challenges):
+   - After understanding the binary through static analysis
+   - Use templates from `00_templates/`
+   - Follow the standard pwn flow: checksec → offset → leak → ROP → shell
+
+**Key principle**: Understand before exploiting. Static analysis reveals logic; dynamic exploitation confirms and triggers vulnerabilities.
+
 ### Creating New Exploit Scripts
 
 1. **Copy from templates**: Always start from `00_templates/`
